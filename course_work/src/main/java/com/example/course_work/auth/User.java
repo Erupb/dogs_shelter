@@ -32,6 +32,6 @@ public class User implements Serializable {
     private String password;
 
     @Column(name = "role")
-    private String role;
+    private String role = "CUSTOMER";
 
 }

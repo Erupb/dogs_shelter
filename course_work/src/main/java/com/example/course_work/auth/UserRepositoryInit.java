@@ -25,7 +25,7 @@ public class UserRepositoryInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("Insert users");
         this.userRepository.deleteAll();
-        User user = new User(counter.incrementAndGet(), "erupb", passwordEncoder.encode("password"), "CUSTOMER");
+        User user = new User(counter.incrementAndGet(), "erupb", passwordEncoder.encode("password"), "ADMIN");
 
         userRepository.save(user);
     }
