@@ -18,6 +18,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
 
+import static com.example.course_work.security.ApplicationUserRole.ADMIN;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -50,11 +52,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("admin1")
                 .password(passwordEncoder.encode("pass"))
-                .roles("ADMIN")//ДЛЯ ЭТОЙ РОЛИ ВСЁ РАБОТАЕТ, ОДНАКО ДЛЯ СОБСТВЕННОГО СОЗДАННОГО АККА НЕТ.
+                .roles("ADMIN")
                 .and()
                 .withUser("customer1")
                 .password("cust")
-                .roles("USER")
+                .roles("CUSTOMER")
         ;
 
     }
@@ -64,7 +66,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/dogs/add_dogs").hasAuthority("ADMIN")
+                //.antMatchers("/dogs/add_dogs").hasAuthority("ADMIN")
                 .antMatchers("/", "/logout", "/login", "/registration")
                 .permitAll()
                 .anyRequest()
