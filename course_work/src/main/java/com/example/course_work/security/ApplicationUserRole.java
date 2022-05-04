@@ -1,6 +1,13 @@
 package com.example.course_work.security;
 
-public enum ApplicationUserRole {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum ApplicationUserRole implements GrantedAuthority {
     CUSTOMER,
-    ADMIN
+    ADMIN;
+
+    @Override
+    public String getAuthority(){
+        return name();
+    }
 }

@@ -26,7 +26,6 @@ public class UserRepositoryInit implements CommandLineRunner {
         log.info("Insert users");
         this.userRepository.deleteAll();
         User user = new User(counter.incrementAndGet(), "erupb", passwordEncoder.encode("password"), "ADMIN");
-
         userRepository.save(user);
     }
 }

@@ -1,8 +1,7 @@
 package com.example.course_work.services;
 
 import com.example.course_work.Jsonable;
-import com.example.course_work.Manufacture;
-import com.example.course_work.Card;
+import com.example.course_work.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,20 +13,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class ScheduleService implements ScheduleServiceMBean{
     private final String BACKUP_DIR = "backups/";
-    private final ManufactureService manufactureService;
-    private final CardService cardService;
+    private final DogService dogService;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu H-m");
 
     @Autowired
-    public ScheduleService(ManufactureService manufactureService, CardService cardService) {
-        this.manufactureService = manufactureService;
-        this.cardService = cardService;
+    public ScheduleService(DogService dogService) {
+        this.dogService = dogService;
     }
 
     @Override
@@ -39,14 +35,11 @@ public class ScheduleService implements ScheduleServiceMBean{
         String dirPath =  BACKUP_DIR + dirName;
         new File(dirPath).mkdirs();
 
-        File manufactureBackup = new File(dirPath + "/manufacture_backup");
-        File cardBackup = new File(dirPath + "/card_backup");
+        File dogBackup = new File(dirPath + "/dog_backup");
 
-        List<Card> cards = cardService.readAll();
-        List<Manufacture> manufactures = manufactureService.readAll();
+        List<Dog> dogs = dogService.readAll();
 
-        writeToFiles(cards, cardBackup);
-        writeToFiles(manufactures, manufactureBackup);
+        writeToFiles(dogs, dogBackup);
         System.out.println("Backup created");
     }
 

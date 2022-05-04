@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @AllArgsConstructor
-public class User implements Serializable {
+public class User implements Serializable{
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +33,4 @@ public class User implements Serializable {
 
     @Column(name = "role")
     private String role = "CUSTOMER";
-
 }

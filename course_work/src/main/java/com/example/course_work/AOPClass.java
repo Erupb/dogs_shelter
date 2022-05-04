@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class AOPClass {
 
-    @Pointcut("within(com.example.newtask15.services.*)")
+    @Pointcut("within(com.example.course_work.services.*)")
     public void executionServiceMethod() {}
 
     @Around("executionServiceMethod()")

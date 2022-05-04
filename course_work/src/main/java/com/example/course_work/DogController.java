@@ -1,48 +1,51 @@
 package com.example.course_work;
 
-import com.example.course_work.services.CardService;
+import com.example.course_work.auth.User;
+import com.example.course_work.services.DogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping(value="/cards")
-public class CardController {
-    private final CardService cardService;
+@Controller
+@RequestMapping(value="/dogs")
+public class DogController {
+    private final DogService dogService;
 
     @Autowired
-    public CardController(CardService cardDriver) {
-        this.cardService = cardDriver;
+    public DogController(DogService dogDriver) {
+        this.dogService = dogDriver;
     }
 
     @PostMapping(value="")
-    public ResponseEntity<?> create(@RequestBody Card card){
-        cardService.create(card);
+    public ResponseEntity<?> create(@RequestBody Dog dog){
+        dogService.create(dog);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping(value="")
-    public ResponseEntity<List<Card>> read() {
-        final List<Card> cards = cardService.readAll();
-        return cards != null && !cards.isEmpty()
-                ? new ResponseEntity<>(cards, HttpStatus.OK)
+    public ResponseEntity<List<Dog>> read() {
+        final List<Dog> dogs = dogService.readAll();
+        return dogs != null && !dogs.isEmpty()
+                ? new ResponseEntity<>(dogs, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<Card> read(@PathVariable(name="id") long id) {
-        final Card card = cardService.read(id);
-        return card != null
-                ? new ResponseEntity<>(card, HttpStatus.OK)
+    public ResponseEntity<Dog> read(@PathVariable(name="id") long id) {
+        final Dog dog = dogService.read(id);
+        return dog != null
+                ? new ResponseEntity<>(dog, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping(value="/{id}")
-    public ResponseEntity<?> update(@PathVariable(name="id") long id, @RequestBody Card card) {
-        final boolean updated = cardService.update(card, id);
+    public ResponseEntity<?> update(@PathVariable(name="id") long id, @RequestBody Dog dog) {
+        final boolean updated = dogService.update(dog, id);
         return updated
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
@@ -50,20 +53,31 @@ public class CardController {
 
     @DeleteMapping(value="/{id}")
     public ResponseEntity<?> delete(@PathVariable(name="id") long id) {
-        final boolean deleted = cardService.delete(id);
+        final boolean deleted = dogService.delete(id);
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @GetMapping(value="/code/{code}")
-    public ResponseEntity<List<Card>> getCardsByCode(@PathVariable(name="code") int code) {
-        final List<Card> codes = cardService.findCardsByCode(code);
-        return codes != null && !codes.isEmpty()
-                ? new ResponseEntity<>(codes, HttpStatus.OK)
+    @GetMapping(value="/dog/{breed}")
+    public ResponseEntity<List<Dog>> getDogsByCode(@PathVariable(name="breed") String breed) {
+        final List<Dog> dogs = dogService.findDogsByBreed(breed);
+        return dogs != null && !dogs.isEmpty()
+                ? new ResponseEntity<>(dogs, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("add_dogs")
+    public String getDogCreatingPage(@ModelAttribute("dog") Dog dog) {
+        return "add_dogs.html";
+    }
+
+    @PostMapping(value = "add_dogs")
+    public String CreateDog(@ModelAttribute("dog") Dog dog) {
+        System.out.println("Dog created");
+        return dogService.create(dog);
+    }
 
 }
 

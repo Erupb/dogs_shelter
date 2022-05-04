@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CardRepository extends JpaRepository<Card, Long> {
-    List<Card> findAllByCode(int code);
-    /*List<Card> findAllByName(String name);*/
+public interface DogRepository extends JpaRepository<Dog, Long> {
+    List<Dog> findAllByBreed(String breed);
 }
