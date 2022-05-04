@@ -67,7 +67,7 @@ public class DogController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("add_dogs")
     public String getDogCreatingPage(@ModelAttribute("dog") Dog dog) {
         return "add_dogs.html";

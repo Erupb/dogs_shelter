@@ -1,5 +1,6 @@
 package com.example.course_work.auth;
 
+import com.example.course_work.security.ApplicationUserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,7 +26,21 @@ public class UserRepositoryInit implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("Insert users");
         this.userRepository.deleteAll();
-        User user = new User(counter.incrementAndGet(), "erupb", passwordEncoder.encode("password"), "ADMIN");
+
+        User user = new User(counter.incrementAndGet(), "erupb", passwordEncoder.encode("password"), ApplicationUserRole.ADMIN);
         userRepository.save(user);
+
+
+        /*
+        User user = new User();
+        user.setUsername("erupb");
+        user.setPassword(passwordEncoder.encode("password"));
+        user.setRole(ApplicationUserRole.ADMIN);
+
+
+        log.info("Sign up application user with username - {}", user.getUsername());
+        userRepository.save(user);
+         */
+
     }
 }

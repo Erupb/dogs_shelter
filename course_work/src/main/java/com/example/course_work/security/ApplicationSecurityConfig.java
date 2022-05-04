@@ -16,10 +16,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private DataSource dataSource;
 
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
@@ -41,17 +45,18 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
-        /*
+
+
         auth.inMemoryAuthentication()
                 .withUser("admin1")
-                .password("pass")
-                .roles("ADMIN")
+                .password(passwordEncoder.encode("pass"))
+                .roles("ADMIN")//ДЛЯ ЭТОЙ РОЛИ ВСЁ РАБОТАЕТ, ОДНАКО ДЛЯ СОБСТВЕННОГО СОЗДАННОГО АККА НЕТ.
                 .and()
                 .withUser("customer1")
                 .password("cust")
                 .roles("USER")
         ;
-         */
+
     }
 
     @Override
@@ -59,7 +64,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                //.antMatchers("/dogs/add_dogs").hasAuthority("ADMIN")
+                .antMatchers("/dogs/add_dogs").hasAuthority("ADMIN")
                 .antMatchers("/", "/logout", "/login", "/registration")
                 .permitAll()
                 .anyRequest()
