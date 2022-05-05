@@ -55,7 +55,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("ADMIN")
                 .and()
                 .withUser("customer1")
-                .password("cust")
+                .password(passwordEncoder.encode("cust"))
                 .roles("CUSTOMER")
         ;
 
@@ -66,7 +66,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                //.antMatchers("/dogs/add_dogs").hasAuthority("ADMIN")
+                .antMatchers("/dogs/add_dogs").hasRole("ADMIN")
                 .antMatchers("/", "/logout", "/login", "/registration")
                 .permitAll()
                 .anyRequest()

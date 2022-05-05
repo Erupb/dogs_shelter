@@ -75,6 +75,8 @@ public class DogController {
         return "add_dogs.html";
     }
 
+    //@PreAuthorize("hasAuthority('ADMIN')")
+    @Secured("ADMIN")
     @PostMapping(value = "add_dogs")
     public String CreateDog(@ModelAttribute("dog") Dog dog) {
         System.out.println("Dog created");
