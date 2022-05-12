@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>All dogs from shelter</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th> Name </th>
+            <th> Breed </th>
+            <th> Image </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${dogs.empty}">
+            <td colspan="3"> No Books Available </td>
+        </tr>
+        <tr th:each="dog : ${dogs}">
+            <td><span th:text="${dog.name}"> Name </span></td>
+            <td><span th:text="${dog.breed}"> Breed </span></td>
+            <td><img class="dogs_img" th:src="${dog.img}"></img></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/">Вернуться на главную страницу</a>
+</body>
+<style>
+    .dogs_img{
+        width:6vw;
+        height:6vw;
+    }
+</style>
+</html>
