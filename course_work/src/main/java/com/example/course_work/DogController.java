@@ -49,6 +49,37 @@ public class DogController {
         return "show_dogs.html";
     }
 
+    @Secured("ADMIN")
+    @GetMapping(value="/admin/{id}")
+    public String showDogById(Model model, @PathVariable(name="id") long id){
+        model.addAttribute("dogs", dogService.read(id));
+        return "show_by_id.html";
+    }
+
+    @PostMapping (value="/admin/{id}/remove")
+    public String DeleteDog(Model model, @PathVariable(name="id") long id){
+        Dog dog = dogService.read(id);
+        DogService.delete(dog);
+        return "show_dogs.html";
+    }
+
+    @Secured("CUSTOMER")
+    @GetMapping(value="/get/{id}")
+    public String getDogById(Model model, @PathVariable(name="id") long id){
+        model.addAttribute("dogs", dogService.read(id));
+        return "take_dog.html";
+    }
+
+    @PostMapping (value="/get/{id}/home")
+    public String GetDog(Model model, @PathVariable(name="id") long id){
+        Dog dog = dogService.read(id);
+        DogService.delete(dog);
+        return "show_dogs.html";
+    }
+
+
+
+    /*
     @GetMapping(value="/{id}")
     public ResponseEntity<Dog> read(@PathVariable(name="id") long id) {
         final Dog dog = dogService.read(id);
@@ -56,6 +87,8 @@ public class DogController {
                 ? new ResponseEntity<>(dog, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+     */
 
     @PutMapping(value="/{id}")
     public ResponseEntity<?> update(@PathVariable(name="id") long id, @RequestBody Dog dog) {
@@ -65,7 +98,7 @@ public class DogController {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @DeleteMapping(value="/{id}")
+    @DeleteMapping(value="/{id}/remove")
     public ResponseEntity<?> delete(@PathVariable(name="id") long id) {
         final boolean deleted = dogService.delete(id);
         return deleted

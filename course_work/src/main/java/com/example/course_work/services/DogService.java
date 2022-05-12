@@ -12,13 +12,18 @@ import java.util.List;
 @Service
 @Slf4j
 public class DogService {
-    private DogRepository dogRepository;
+    private static DogRepository dogRepository;
     private EmailService emailService;
 
     @Autowired
     public DogService(DogRepository dogRepository, EmailService emailService) {
         this.dogRepository = dogRepository;
         //this.emailService = emailService;
+    }
+
+    public static void delete(Dog dog) {
+        log.info("Delete dog by id = {}", dog);
+        dogRepository.delete(dog);
     }
 
     @Transactional
@@ -51,7 +56,7 @@ public class DogService {
 
     @Transactional
     public boolean delete(long id) {
-        log.info("Delete card by id = {}", id);
+        log.info("Delete dog by id = {}", id);
         dogRepository.deleteById(id);
         return true;
     }

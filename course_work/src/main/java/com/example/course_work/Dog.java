@@ -1,5 +1,6 @@
 package com.example.course_work;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Table(name = "dogs")
 @Getter
 @Setter
+@JsonSerialize
 @NoArgsConstructor
 public class Dog implements Jsonable{
     @Id

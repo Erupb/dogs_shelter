@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,18 +10,29 @@
     <table>
         <thead>
         <tr>
-            <th> Name </th>
-            <th> Breed </th>
-            <th> Image </th>
+            <th> Уникальный номер </th>
+            <th> Имя </th>
+            <th> Порода </th>
+            <th> Фото </th>
         </tr>
         </thead>
         <tbody>
+        <!--
         <tr th:if="${dogs.empty}">
-            <td colspan="3"> No Books Available </td>
+            <td colspan="4"> Собак не найдено </td>
         </tr>
+        -->
         <tr th:each="dog : ${dogs}">
-            <td><span th:text="${dog.name}"> Name </span></td>
-            <td><span th:text="${dog.breed}"> Breed </span></td>
+            <td>
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <a th:href="@{/dogs/admin/} + ${dog.id}"><span th:text="${dog.id} + ' - Удалить собаку из списка приюта'"> Уникальный номер </span></a>
+                </div>
+                <div sec:authorize="hasAuthority('CUSTOMER')">
+                    <a th:href="@{/dogs/get/} + ${dog.id}"><span th:text="${dog.id} + ' - Взять собаку к себе домой'"> Уникальный номер </span></a>
+                </div>
+            </td>
+            <td><span th:text="${dog.name}"> Имя </span></td>
+            <td><span th:text="${dog.breed}"> Порода </span></td>
             <td><img class="dogs_img" th:src="${dog.img}"></img></td>
         </tr>
         </tbody>

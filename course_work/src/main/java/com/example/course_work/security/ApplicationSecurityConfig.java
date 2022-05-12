@@ -73,6 +73,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/dogs/add_dogs").hasRole("ADMIN")
+                .antMatchers("/dogs/admin/**").hasRole("ADMIN")
+                .antMatchers("/dogs/get/**").hasRole("CUSTOMER")
                 .antMatchers("/", "/logout", "/login", "/registration")
                 .permitAll()
                 .anyRequest()
