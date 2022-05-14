@@ -9,23 +9,27 @@
 <table>
     <thead>
     <tr>
-        <th> Name </th>
-        <th> Breed </th>
-        <th> Image </th>
+        <th> Кличка </th>
+        <th> Порода </th>
+        <th> Фото </th>
     </tr>
     </thead>
-    <tbody>
-    <tr th:each="dog : ${dogs}">
-        <td><span th:text="${dog.name}"> Name </span></td>
-        <td><span th:text="${dog.breed}"> Breed </span></td>
-        <td><img class="dogs_img" th:src="${dog.img}"></img></td>
-        <form th:action="'/dogs/get/' + ${dog.id} + '/home'" method="post">
-            <button type="submit">Взять собаку к себе домой</button>
-        </form>
-    </tr>
+    <tbody th:each="dog : ${dogs}", th:with="dog_id=${dog.id}">
+        <tr>
+            <td><span th:text="${dog.name}"> Кличка </span></td>
+            <td><span th:text="${dog.breed}"> Порода </span></td>
+            <td><img class="dogs_img" th:src="${dog.img}"></img></td>
+        </tr>
+
 
     </tbody>
 </table>
+<div th:each="dog : ${dogs}"}>
+    <form th:action="'/dogs/get/' + ${dog.id} + '/home'" method="post">
+        <button type="submit">Взять собаку к себе домой</button>
+    </form>
+</div>
+
 <a href="/">Вернуться на главную страницу</a>
 </body>
 <style>

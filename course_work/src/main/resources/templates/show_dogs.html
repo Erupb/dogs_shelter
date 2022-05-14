@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>All dogs from shelter</title>
+    <title>Все собаки в приюте</title>
 </head>
 <body>
     <table>
         <thead>
         <tr>
             <th> Уникальный номер </th>
-            <th> Имя </th>
+            <th> Кличка </th>
             <th> Порода </th>
             <th> Фото </th>
         </tr>
@@ -24,14 +24,17 @@
         -->
         <tr th:each="dog : ${dogs}">
             <td>
+                <span th:text="${dog.id}" style="margin-left: auto; margin-right: auto">Id</span>
                 <div sec:authorize="hasAuthority('ADMIN')">
-                    <a th:href="@{/dogs/admin/} + ${dog.id}"><span th:text="${dog.id} + ' - Удалить собаку из списка приюта'"> Уникальный номер </span></a>
+
+                    <br>
+                    <a th:href="@{/dogs/admin/} + ${dog.id}"><span>Удалить сведения о собаке</span></a>
                 </div>
                 <div sec:authorize="hasAuthority('CUSTOMER')">
-                    <a th:href="@{/dogs/get/} + ${dog.id}"><span th:text="${dog.id} + ' - Взять собаку к себе домой'"> Уникальный номер </span></a>
+                    <a th:href="@{/dogs/get/} + ${dog.id}"><span> Взять собаку к себе домой </span></a>
                 </div>
             </td>
-            <td><span th:text="${dog.name}"> Имя </span></td>
+            <td><span th:text="${dog.name}"> Кличка </span></td>
             <td><span th:text="${dog.breed}"> Порода </span></td>
             <td><img class="dogs_img" th:src="${dog.img}"></img></td>
         </tr>

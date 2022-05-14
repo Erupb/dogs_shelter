@@ -2,22 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Удаление собаки</title>
+    <title>Удаление сведений о собаке</title>
 </head>
-<body>
 <body>
 <table>
     <thead>
     <tr>
-        <th> Name </th>
-        <th> Breed </th>
-        <th> Image </th>
+        <th> Кличка </th>
+        <th> Порода </th>
+        <th> Фото </th>
     </tr>
     </thead>
     <tbody>
         <tr th:each="dog : ${dogs}">
-            <td><span th:text="${dog.name}"> Name </span></td>
-            <td><span th:text="${dog.breed}"> Breed </span></td>
+            <td><span th:text="${dog.name}"> Имя </span></td>
+            <td><span th:text="${dog.breed}"> Порода </span></td>
             <td><img class="dogs_img" th:src="${dog.img}"></img></td>
             <form th:action="'/dogs/admin/' + ${dog.id} + '/remove'" method="post">
                 <button type="submit">Удалить</button>
@@ -27,11 +26,12 @@
     </tbody>
 </table>
 <a href="/">Вернуться на главную страницу</a>
-</body>
+
 <style>
     .dogs_img{
         width:6vw;
         height:6vw;
     }
 </style>
+</body>
 </html>

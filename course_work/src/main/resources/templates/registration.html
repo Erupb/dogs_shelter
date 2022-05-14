@@ -4,24 +4,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Sign in page</title>
+    <title>Регистрация</title>
     <!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
     <!--    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">-->
 </head>
 <body>
 <div >
     <form th:method="POST" th:action="@{/registration}" th:object="${user}">
-        <h2>Please sign up to Dog Shelter API</h2>
+        <h2>Пожалуйста, зарегистрируйтесь в системе!</h2>
         <p>
-            <label for="username" >Username</label>
+            <label for="username" >Логин</label>
             <input type="text" th:field="*{username}" id="username" placeholder="Username"/>
         </p>
         <p>
-            <label for="password" >Password</label>
+            <label for="password" >Пароль</label>
             <input type="password" th:field="*{password}" id="password" placeholder="Password"/>
         </p>
-        <a href="/login">Already registered? Sign in</a>
-        <button type="submit">Sign up</button>
+        <button type="submit">Зарегистрироваться</button>
+        <br>
+        <a href="/login">Уже зарегистрированы?</a>
     </form>
 
 </div>

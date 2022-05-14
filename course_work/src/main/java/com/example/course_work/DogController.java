@@ -63,7 +63,6 @@ public class DogController {
         return "show_dogs.html";
     }
 
-    @Secured("CUSTOMER")
     @GetMapping(value="/get/{id}")
     public String getDogById(Model model, @PathVariable(name="id") long id){
         model.addAttribute("dogs", dogService.read(id));

@@ -25,10 +25,10 @@ public class UserRepositoryInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("Insert users");
-        this.userRepository.deleteAll();
+        //this.userRepository.deleteAll();
 
-        User user = new User(counter.incrementAndGet(), "erupb", passwordEncoder.encode("password"), ApplicationUserRole.ADMIN);
-        userRepository.save(user);
+        //User user = new User(counter.incrementAndGet(), "erupb", passwordEncoder.encode("password"), ApplicationUserRole.ADMIN);
+        //userRepository.save(user);
 
 
         /*

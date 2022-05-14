@@ -74,7 +74,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/dogs/add_dogs").hasRole("ADMIN")
                 .antMatchers("/dogs/admin/**").hasRole("ADMIN")
-                .antMatchers("/dogs/get/**").hasRole("CUSTOMER")
+                //.antMatchers("/dogs/get/**").hasRole("CUSTOMER")
                 .antMatchers("/", "/logout", "/login", "/registration")
                 .permitAll()
                 .anyRequest()
