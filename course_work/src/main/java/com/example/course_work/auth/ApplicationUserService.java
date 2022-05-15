@@ -36,7 +36,8 @@ public class ApplicationUserService implements UserDetailsService {
     public String signUpUser(User user) {
         boolean userExists = userRepository.findUserByUsername(user.getUsername()) != null;
         if (userExists) {
-            throw new IllegalStateException(String.format("User with username %s exists", user.getUsername()));
+            //throw new IllegalStateException(String.format("User with username %s exists", user.getUsername()));
+            return "user_exists";
         }
         String password = user.getPassword();
         user.setPassword(passwordEncoder.encode(password));

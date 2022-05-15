@@ -26,20 +26,19 @@
     </nav>
 </head>
 <body>
-<div >
-    <form th:method="POST" th:action="@{/registration}" th:object="${user}">
+<div class="container">
+    <form th:method="POST" th:action="@{/registration}" th:object="${user}" class="form-group">
         <h2>Пожалуйста, зарегистрируйтесь в системе!</h2>
         <p>
             <label for="username" >Логин</label>
-            <input type="text" th:field="*{username}" id="username" placeholder="Username"/>
+            <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Username"/>
         </p>
         <p>
             <label for="password" >Пароль</label>
-            <input type="password" th:field="*{password}" id="password" placeholder="Password"/>
+            <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password"/>
         </p>
-        <button type="submit">Зарегистрироваться</button>
-        <br>
-        <a href="/login">Уже зарегистрированы?</a>
+        <button type="submit" class="btn btn-success">Зарегистрироваться</button>
+        <a href="/login"><button type="button" class="btn btn-warning"> Уже зарегистрированы?</button></a>
     </form>
 
 </div>
