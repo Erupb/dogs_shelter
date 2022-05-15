@@ -23,10 +23,23 @@
     </nav>
 </head>
 <body>
-<div class = "container alert alert-danger mt-5" role="alert">
-    <h1>Пользователь с данным именем уже зарегистрирован в системе!</h1>
+<div class = "container alert alert-danger mt-5 container_mobile" role="alert">
+    <p class="maintext">Пользователь с данным именем уже зарегистрирован в системе!</p>
     <a href="/registration"><button type="button" class="btn btn-info">Перейти на страницу регистрации</button></a>
 </div>
+<style>
+    .maintext{
+        font-size:3rem;
+    }
+    @media screen and (max-width: 600px){
+        .maintext{
+            font-size: 1rem;
+        }
+        .container_mobile{
+            width:80%;
+        }
+    }
+</style>
 </body>
 <!-- JS, Popper.js, and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
