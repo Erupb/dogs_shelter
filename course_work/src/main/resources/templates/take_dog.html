@@ -26,6 +26,7 @@
     </nav>
 </head>
 <body>
+<!--
 <table>
     <thead>
     <tr>
@@ -54,8 +55,62 @@
 </body>
 <style>
     .dogs_img{
-        width:6vw;
-        height:6vw;
+        width:15vw;
+        height:15vw;
+        object-fit: contain;
+    }
+</style>
+-->
+
+<div class="container delete_container" >
+    <div th:if="${#lists.isEmpty(dogs)}">
+        <h1 class = "container alert alert-danger mt-5" role="alert"> Собака не найдено </h1>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(dogs)}">
+        <b class="row">
+            <div class="col text-center"> Кличка </div>
+            <div class="col text-center"> Порода </div>
+            <div class="col text-center"> Фото </div>
+        </b>
+        <div th:each="dog : ${dogs}" class="row"  style="padding-top: 2vw">
+            <div class="col text-center text-padding"><span th:text="${dog.name}"> Имя </span></div>
+            <div class="col text-center text-padding"><span th:text="${dog.breed}"> Порода </span></div>
+            <div class="col text-center"><img class="dogs_img" th:src="${dog.img}"></img></div>
+
+        </div>
+    </div>
+    <div th:each="dog : ${dogs}" style="text-align: center;">
+        <form th:action="'/dogs/get/' + ${dog.id} + '/home'" method="post">
+            <button type="submit" class="btn btn-success" style="width: 100%">Взять собаку к себе домой</button>
+        </form>
+    </div>
+</div>
+<style>
+    .dogs_img{
+        width:12vw;
+        height:12vw;
+        object-fit: contain;
+    }
+    .delete_container{
+        max-width: 50%;
+    }
+    .text-padding{
+        padding-top: 3vw;
+    }
+
+    @media screen and (max-width: 700px){
+        .dogs_img{
+            width:8vw;
+            height:8vw;
+        }
+        .delete_container{
+            max-width: 80%;
+            font-size: 0.7rem;
+        }
+        .text-padding{
+            padding-top: 1vw;
+        }
     }
 </style>
 <!-- JS, Popper.js, and jQuery -->

@@ -26,32 +26,87 @@
     </nav>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th> Кличка </th>
-        <th> Порода </th>
-        <th> Фото </th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr th:each="dog : ${dogs}">
-            <td><span th:text="${dog.name}"> Имя </span></td>
-            <td><span th:text="${dog.breed}"> Порода </span></td>
-            <td><img class="dogs_img" th:src="${dog.img}"></img></td>
+<!--
+    <div class="container">
+        <table class="row">
+            <tr th:if="${#lists.isEmpty(dogs)}">
+                <td class = "container alert alert-danger mt-5" role="alert"> Собака не найдено </td>
+            </tr>
+
+            <div th:if="${not #lists.isEmpty(dogs)}">
+                <thead>
+                <tr>
+                    <th> Кличка </th>
+                    <th> Порода </th>
+                    <th> Фото </th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dog : ${dogs}">
+                        <td><span th:text="${dog.name}"> Имя </span></td>
+                        <td><span th:text="${dog.breed}"> Порода </span></td>
+                        <td><img class="dogs_img" th:src="${dog.img}"></img></td>
+
+                    </tr>
+                </tbody>
+            </div>
+        </table>
+        <div th:each="dog : ${dogs}">
             <form th:action="'/dogs/admin/' + ${dog.id} + '/remove'" method="post">
-                <button type="submit">Удалить</button>
+                <button type="submit">Удалить сведения</button>
             </form>
-        </tr>
+        </div>
+    </div>
+    -->
+<div class="container delete_container" >
+    <div th:if="${#lists.isEmpty(dogs)}">
+        <h1 class = "container alert alert-danger mt-5" role="alert"> Собака не найдено </h1>
+    </div>
 
-    </tbody>
-</table>
-<a href="/">Вернуться на главную страницу</a>
+    <div th:if="${not #lists.isEmpty(dogs)}">
+        <b class="row">
+            <div class="col text-center"> Кличка </div>
+            <div class="col text-center"> Порода </div>
+            <div class="col text-center"> Фото </div>
+        </b>
+        <div th:each="dog : ${dogs}" class="row"  style="padding-top: 2vw">
+            <div class="col text-center text-padding"><span th:text="${dog.name}"> Имя </span></div>
+            <div class="col text-center text-padding"><span th:text="${dog.breed}"> Порода </span></div>
+            <div class="col text-center"><img class="dogs_img" th:src="${dog.img}"></img></div>
 
+        </div>
+    </div>
+    <div th:each="dog : ${dogs}" style="text-align: center;">
+        <form th:action="'/dogs/admin/' + ${dog.id} + '/remove'" method="post">
+            <button type="submit" class="btn btn-success" style="width: 100%">Удалить сведения</button>
+        </form>
+    </div>
+</div>
 <style>
     .dogs_img{
-        width:6vw;
-        height:6vw;
+        width:12vw;
+        height:12vw;
+        object-fit: contain;
+    }
+    .delete_container{
+        max-width: 50%;
+    }
+    .text-padding{
+        padding-top: 3vw;
+    }
+
+    @media screen and (max-width: 700px){
+        .dogs_img{
+            width:8vw;
+            height:8vw;
+        }
+        .delete_container{
+            max-width: 80%;
+            font-size: 0.7rem;
+        }
+        .text-padding{
+            padding-top: 1vw;
+        }
     }
 </style>
 </body>

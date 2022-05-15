@@ -60,7 +60,7 @@ public class DogController {
     public String DeleteDog(Model model, @PathVariable(name="id") long id){
         Dog dog = dogService.read(id);
         DogService.delete(dog);
-        return "show_dogs.html";
+        return "redirect:/dogs";
     }
 
     @GetMapping(value="/get/{id}")
