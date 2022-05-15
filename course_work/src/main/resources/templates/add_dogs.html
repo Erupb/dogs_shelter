@@ -49,7 +49,8 @@
         <div class="form-group">
             <p>
                 <label for="img">URL картинки</label>
-                <input type="text" th:field="*{img}" class="form-control" id="img" placeholder="Вставьте URL картинки"/>
+                <input type="text" th:field="*{img}" class="form-control" id="img" aria-describedby="urlHelp" placeholder="Вставьте URL картинки"/>
+                <small id="urlHelp" class="form-text text-muted">Скопируйте любую картинку из интернета или выложите свою на доступные сервисы и скопируйте предоставленную ссылку.</small>
             </p>
         </div>
             <button type="submit" class="btn btn-primary">Создать</button>
