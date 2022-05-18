@@ -10,24 +10,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.AccessDeniedHandler;
-
-import javax.sql.DataSource;
-
-import static com.example.course_work.security.ApplicationUserRole.ADMIN;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private DataSource dataSource;
-
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
 
@@ -50,6 +39,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomAccessDeniedHandler();
     }
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
@@ -64,7 +54,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(passwordEncoder.encode("cust"))
                 .roles("CUSTOMER")
         ;
-
     }
 
     @Override
@@ -80,14 +69,16 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
+
                 //.and()
                 //.exceptionHandling().accessDeniedPage("/accessDenied.jsp")
                 .and()
                 .formLogin()
+
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/", true)
-
-        ;
+                .failureUrl("/authError");
     }
 }

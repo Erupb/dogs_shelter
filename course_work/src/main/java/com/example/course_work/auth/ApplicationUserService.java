@@ -39,6 +39,7 @@ public class ApplicationUserService implements UserDetailsService {
             //throw new IllegalStateException(String.format("User with username %s exists", user.getUsername()));
             return "user_exists";
         }
+
         String password = user.getPassword();
         user.setPassword(passwordEncoder.encode(password));
         user.setRole(ApplicationUserRole.CUSTOMER);

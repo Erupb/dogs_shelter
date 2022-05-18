@@ -11,6 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class AuthController {
     private ApplicationUserService applicationUserService;
 
+    @GetMapping("/authError")
+    public String getAuthErrorPage() {
+        return "authError.html";
+    }
+
+
     @GetMapping("/login")
     public String getLoginPage() {
         return "login.html";
