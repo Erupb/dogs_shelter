@@ -30,19 +30,6 @@ public class DogController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    /*
-    @GetMapping(value="")
-    public ResponseEntity<List<Dog>> read(Map<String, Object> model) {
-        final List<Dog> dogs = dogService.readAll();
-
-        model.put("dogs", dogs);
-
-        return dogs != null && !dogs.isEmpty()
-                ? new ResponseEntity<>(dogs, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-     */
     @GetMapping("")
     public String showDogs(Model model){
         model.addAttribute("dogs", dogService.readAll());
@@ -76,19 +63,6 @@ public class DogController {
         return "show_dogs.html";
     }
 
-
-
-    /*
-    @GetMapping(value="/{id}")
-    public ResponseEntity<Dog> read(@PathVariable(name="id") long id) {
-        final Dog dog = dogService.read(id);
-        return dog != null
-                ? new ResponseEntity<>(dog, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-     */
-
     @PutMapping(value="/{id}")
     public ResponseEntity<?> update(@PathVariable(name="id") long id, @RequestBody Dog dog) {
         final boolean updated = dogService.update(dog, id);
@@ -113,14 +87,12 @@ public class DogController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    //@PreAuthorize("hasAuthority('ADMIN')")
     @Secured("ADMIN")
     @GetMapping("add_dogs")
     public String getDogCreatingPage(@ModelAttribute("dog") Dog dog) {
         return "add_dogs.html";
     }
 
-    //@PreAuthorize("hasAuthority('ADMIN')")
     @Secured("ADMIN")
     @PostMapping(value = "add_dogs")
     public String CreateDog(@ModelAttribute("dog") Dog dog) {
@@ -129,47 +101,3 @@ public class DogController {
     }
 
 }
-
-/*import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-@RestController
-@RequestMapping(value="/cards")
-public class CardController {
-    private final CardDriver driver;
-
-    @Autowired
-    public CardController(CardDriver driver) {
-        this.driver = driver;
-    }
-
-
-    @GetMapping(value="")
-    public ResponseEntity<List<Card>> read() {
-        final List<Card> phones = driver.readAll();
-        return phones != null && !phones.isEmpty()
-                ? new ResponseEntity<>(phones, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping(value="/{id}")
-    public ResponseEntity<Card> read(@PathVariable(name="id") long id) {
-        final Card phone = driver.read(id);
-        return phone != null
-                ? new ResponseEntity<>(phone, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping(value="/code/{code}")
-    public ResponseEntity<List<Card>> findCardsByCode(@PathVariable(name="code") int code) {
-        final List<Card> cards = driver.findCardsByCode(code);
-        return cards != null && !cards.isEmpty()
-                ? new ResponseEntity<>(cards, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-}*/

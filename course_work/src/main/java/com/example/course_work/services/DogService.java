@@ -18,7 +18,6 @@ public class DogService {
     @Autowired
     public DogService(DogRepository dogRepository) {
         this.dogRepository = dogRepository;
-        //this.emailService = emailService;
     }
 
     public static void delete(Dog dog) {
@@ -30,7 +29,6 @@ public class DogService {
     public String create(Dog dog) {
         log.info("Create dogs {}", dog);
         dogRepository.save(dog);
-        //emailService.sendNotification(dog);
         return "add_dogs";
     }
 

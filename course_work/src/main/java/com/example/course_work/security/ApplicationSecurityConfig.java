@@ -63,20 +63,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/dogs/add_dogs").hasRole("ADMIN")
                 .antMatchers("/dogs/admin/**").hasRole("ADMIN")
-                //.antMatchers("/dogs/get/**").hasRole("CUSTOMER")
                 .antMatchers("/", "/logout", "/login", "/registration")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-
-                //.and()
-                //.exceptionHandling().accessDeniedPage("/accessDenied.jsp")
                 .and()
                 .formLogin()
-
                 .loginPage("/login").permitAll()
                 .defaultSuccessUrl("/", true)
                 .failureUrl("/authError");

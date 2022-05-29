@@ -36,25 +36,5 @@ public class AuthController {
     public String signUpUser(@ModelAttribute("user") User user) {
         return applicationUserService.signUpUser(user);
     }
-    /*
-    @RequestMapping("login")
-    public String getLoginPage() {
-        return "login.html";
-    }
 
-    @RequestMapping("")
-    public String getIndexPage() {
-        return "index.html";
-    }
-
-    @RequestMapping("registration")
-    public String getRegistrationPage(@ModelAttribute("user") User user) {
-        return "registration.html";
-    }
-
-    @PostMapping("registration")
-    public String signUpUser(@ModelAttribute("user") User user) {
-        return applicationUserService.signUpUser(user);
-    }
-     */
 }
