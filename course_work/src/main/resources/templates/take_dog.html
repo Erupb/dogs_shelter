@@ -67,10 +67,6 @@
         <h1 class = "container alert alert-danger mt-5" role="alert"> Собака не найдена </h1>
     </div>
 
-    <div th:if="${#lists.isEmpty(dogs)}">
-        <h1 class = "container alert alert-danger mt-5" role="alert"> Собака не найдена </h1>
-    </div>
-
     <div th:if="${not #lists.isEmpty(dogs)}">
         <b class="row">
             <div class="col text-center"> Фото </div>
@@ -81,22 +77,37 @@
 
         </b>
         <div th:each="dog : ${dogs}" class="row"  style="padding-top: 2vw">
-            <div class="col text-center"><img class="dogs_img" th:src="${dog.img}"></img></div>
-            <div class="col text-center text-padding"><span th:text="${dog.name}"> Кличка </span></div>
-            <div class="col text-center text-padding"><span th:text="${dog.age}"> Возраст </span></div>
-            <div class="col text-center text-padding"><span th:text="${dog.breed}"> Порода </span></div>
-            <div class="col text-center text-padding"><span th:text="${dog.description}"> Краткая информация о собаке </span></div>
+            <div class="col text-center"><img id="dogimg" class="dogs_img" th:src="${dog.img}"></img></div>
+            <div class="col text-center text-padding"><span id="dogname" th:text="${dog.name}"> Кличка </span></div>
+            <div class="col text-center text-padding"><span id="doage" th:text="${dog.age}"> Возраст </span></div>
+            <div class="col text-center text-padding"><span id="dogbreed" th:text="${dog.breed}"> Порода </span></div>
+            <div class="col text-center text-padding"><span id="dogdesc" th:text="${dog.description}"> Краткая информация о собаке </span></div><br>
+
+            <div>
+                <p>Пожалуйста, введите свой номер телефона или телеграм Id для обратной связи или оставьте установленный логин</p>
+                <span type="text" required="" id="contact" placeholder="+7xxxxxxxxxx или @TgId">Контакт не установлен</span>
+                <p>Установить другой контакт</p>
+                <input id="inputNewContact">
+                <button id="acceptNewContact">Добавить другой контакт</button>
+                <button id="contactButton">Отправить данные</button>
+            </div>
 
 
         </div>
     </div>
     <div th:each="dog : ${dogs}" style="text-align: center;">
         <form th:action="'/dogs/get/' + ${dog.id} + '/home'" method="post">
-            <button type="submit" class="btn btn-success" style="width: 100%">Взять собаку к себе домой</button>
+            <button type="submit" id="Take_dog_button" class="btn btn-success" style="width: 100%">Взять собаку к себе домой</button>
         </form>
     </div>
+
 </div>
 <style>
+    #Take_dog_button{
+        visibility: hidden;
+        margin-top: 2vw;
+    }
+
     .dogs_img{
         width:12vw;
         height:12vw;
@@ -125,7 +136,41 @@
 </style>
 </body>
 <!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script>
+    let contact = document.getElementById("contact").innerHTML;
+    let imgURL = document.getElementById("dogimg").innerHTML;
+    let name = document.getElementById("dogname").innerHTML;
+    let age = document.getElementById("doage").innerHTML;
+    let breed = document.getElementById("dogbreed").innerHTML;
+    let dogdesc = document.getElementById("dogdesc").innerHTML;
+
+    document.getElementById("acceptNewContact").addEventListener('click', function (e){
+        document.getElementById("contact").innerHTML = document.getElementById("inputNewContact").value;
+    })
+
+    document.getElementById("contactButton").addEventListener('click', function (e){
+        contact = document.getElementById("contact").innerHTML;
+        sendTelegramMessage(imgURL, contact, name, age, breed, dogdesc);
+        document.getElementById("Take_dog_button").style.visibility = "visible";
+    })
+    function sendTelegramMessage(imgURL, contact, name, age, breed, dogdesc){
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://api.telegram.org/bot5886369772:AAG9o02EqUKUf7QqUlJnPw6aihh3ycz1eps/sendMessage?chat_id=363671355&text=Пользователь " + contact + " взял собаку к себе. Описание собаки: Имя: " + name + ", возраст: " + age + ", порода: " + breed + ", описание: " + dogdesc,
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "cache-control": "no-cache"
+            }
+        }
+
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+        });
+    }
+</script>
 </html>

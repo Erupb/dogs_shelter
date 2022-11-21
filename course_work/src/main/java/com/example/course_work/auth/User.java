@@ -38,7 +38,6 @@ public class User implements Serializable, UserDetails {
     @Enumerated(EnumType.STRING)
     private ApplicationUserRole role;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(getRole());
