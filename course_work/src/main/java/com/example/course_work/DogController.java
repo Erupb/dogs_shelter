@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,9 @@ import java.util.Map;
 @RequestMapping(value="/dogs")
 public class DogController {
     private final DogService dogService;
+
+    @Autowired
+    private DogRepository dogRepository;
 
     @Autowired
     public DogController(DogService dogDriver) {
@@ -50,6 +54,25 @@ public class DogController {
         return "redirect:/dogs";
     }
 
+    @Secured("ADMIN")
+    @GetMapping(value="/admin/update")
+    public String updateDogById(Model model){
+        return "update_dog.html";
+    }
+
+    @PutMapping(value="/admin/update")
+    public String update(Model model, @RequestBody Long id, @RequestBody String description) {
+        System.out.println("Updating");
+        dogService.updateDogDescription(description, id);
+        return "update_dog.html";
+    }
+
+    @GetMapping(value="/watch/{id}")
+    public String watchDogById(Model model, @PathVariable(name="id") long id){
+        model.addAttribute("dogs", dogService.read(id));
+        return "watch_dog.html";
+    }
+
     @GetMapping(value="/get/{id}")
     public String getDogById(Model model, @PathVariable(name="id") long id){
         model.addAttribute("dogs", dogService.read(id));
@@ -63,13 +86,7 @@ public class DogController {
         return "show_dogs.html";
     }
 
-    @PutMapping(value="/{id}")
-    public ResponseEntity<?> update(@PathVariable(name="id") long id, @RequestBody Dog dog) {
-        final boolean updated = dogService.update(dog, id);
-        return updated
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-    }
+
 
     @DeleteMapping(value="/{id}/remove")
     public ResponseEntity<?> delete(@PathVariable(name="id") long id) {

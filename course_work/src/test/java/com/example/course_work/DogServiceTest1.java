@@ -72,7 +72,7 @@ class DogServiceTest1 {
         dog.setId(1L);
 
         // when
-        underTest.update(dog, dog.getId());
+        /*underTest.updateDog(dog.getId(), dog);*/
 
         // then
         Mockito.verify(dogRepository).save(dog);

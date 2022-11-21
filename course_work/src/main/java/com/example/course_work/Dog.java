@@ -29,4 +29,10 @@ public class Dog implements Jsonable{
     // Ссылка на картинку
     @Column(name = "img")
     private String img;
+
+    @Column(name = "age")
+    private int age;
+
+    @Column(name = "description")
+    private String description;
 }

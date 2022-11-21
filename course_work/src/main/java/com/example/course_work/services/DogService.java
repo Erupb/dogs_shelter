@@ -13,7 +13,6 @@ import java.util.List;
 @Slf4j
 public class DogService {
     private static DogRepository dogRepository;
-    private EmailService emailService;
 
     @Autowired
     public DogService(DogRepository dogRepository) {
@@ -45,11 +44,11 @@ public class DogService {
     }
 
     @Transactional
-    public boolean update(Dog dog, long id) {
-        log.info("Update dog by id = {}", id);
-        dog.setId(id);
+    public void updateDogDescription(String description, Long id) {
+        log.info("Update dog by id");
+        Dog dog = dogRepository.getById(id);
+        dog.setDescription(description);
         dogRepository.save(dog);
-        return true;
     }
 
     @Transactional

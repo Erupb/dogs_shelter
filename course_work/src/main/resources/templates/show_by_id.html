@@ -60,25 +60,31 @@
     -->
 <div class="container delete_container" >
     <div th:if="${#lists.isEmpty(dogs)}">
-        <h1 class = "container alert alert-danger mt-5" role="alert"> Собака не найдено </h1>
+        <h1 class = "container alert alert-danger mt-5" role="alert"> Собака не найдена </h1>
     </div>
 
     <div th:if="${not #lists.isEmpty(dogs)}">
         <b class="row">
-            <div class="col text-center"> Кличка </div>
-            <div class="col text-center"> Порода </div>
             <div class="col text-center"> Фото </div>
+            <div class="col text-center"> Кличка </div>
+            <div class="col text-center"> Возраст </div>
+            <div class="col text-center"> Порода </div>
+            <div class="col text-center"> Краткая информация о собаке </div>
+
         </b>
         <div th:each="dog : ${dogs}" class="row"  style="padding-top: 2vw">
-            <div class="col text-center text-padding"><span th:text="${dog.name}"> Имя </span></div>
-            <div class="col text-center text-padding"><span th:text="${dog.breed}"> Порода </span></div>
             <div class="col text-center"><img class="dogs_img" th:src="${dog.img}"></img></div>
+            <div class="col text-center text-padding"><span th:text="${dog.name}"> Кличка </span></div>
+            <div class="col text-center text-padding"><span th:text="${dog.age}"> Возраст </span></div>
+            <div class="col text-center text-padding"><span th:text="${dog.breed}"> Порода </span></div>
+            <div class="col text-center text-padding"><span th:text="${dog.description}"> Краткая информация о собаке </span></div>
+
 
         </div>
     </div>
     <div th:each="dog : ${dogs}" style="text-align: center;">
         <form th:action="'/dogs/admin/' + ${dog.id} + '/remove'" method="post">
-            <button type="submit" class="btn btn-success" style="width: 100%">Удалить сведения</button>
+            <button type="submit" class="btn btn-danger" style="width: 100%">Удалить сведения</button>
         </form>
     </div>
 </div>
