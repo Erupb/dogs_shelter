@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="dogs_shelter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/dogs_shelter_jar</output-path>
+    <root id="archive" name="dogs_shelter.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/course_work/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
