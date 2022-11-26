@@ -54,18 +54,6 @@ public class DogController {
         return "redirect:/dogs";
     }
 
-    @Secured("ADMIN")
-    @GetMapping(value="/admin/update")
-    public String updateDogById(Model model){
-        return "update_dog.html";
-    }
-
-    @PutMapping(value="/admin/update")
-    public String update(Model model, @RequestBody Long id, @RequestBody String description) {
-        System.out.println("Updating");
-        dogService.updateDogDescription(description, id);
-        return "update_dog.html";
-    }
 
     @GetMapping(value="/watch/{id}")
     public String watchDogById(Model model, @PathVariable(name="id") long id){
