@@ -64,21 +64,6 @@ class DogServiceTest1 {
     }
 
     @Test
-    void update() {
-        // given
-        Dog dog = new Dog();
-        dog.setBreed("Basenji");
-        dog.setName("Klif");
-        dog.setId(1L);
-
-        // when
-        /*underTest.updateDog(dog.getId(), dog);*/
-
-        // then
-        Mockito.verify(dogRepository).save(dog);
-    }
-
-    @Test
     void delete() {
         // given
         Dog dog = new Dog();
