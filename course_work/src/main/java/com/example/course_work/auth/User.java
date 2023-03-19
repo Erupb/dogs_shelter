@@ -33,7 +33,7 @@ public class User implements Serializable, UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "phone_number", length = 20)
+    @Column(name = "phone_number", length = 12)
     private String phone_number;
 
     //'CUSTOMER'::character varying
