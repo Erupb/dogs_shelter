@@ -1,31 +1,31 @@
 package com.example.course_work;
 
-import com.example.course_work.auth.User;
 import com.example.course_work.services.DogService;
+import com.example.course_work.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value="/dogs")
 public class DogController {
     private final DogService dogService;
+    private final OrderService orderService;
 
     @Autowired
     private DogRepository dogRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
-    public DogController(DogService dogDriver) {
+    public DogController(DogService dogDriver, OrderService orderService) {
         this.dogService = dogDriver;
+        this.orderService = orderService;
     }
 
     @PostMapping(value="")
@@ -74,7 +74,12 @@ public class DogController {
         return "show_dogs.html";
     }
 
-
+    @Secured("ADMIN")
+    @GetMapping(value="/admin/orders")
+    public String showOrders(Model model){
+        model.addAttribute("orders", orderService.readAll());
+        return "show_orders.html";
+    }
 
     @DeleteMapping(value="/{id}/remove")
     public ResponseEntity<?> delete(@PathVariable(name="id") long id) {
@@ -82,6 +87,13 @@ public class DogController {
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    }
+
+    @PostMapping (value="/admin/orders/{id}/remove")
+    public String DeleteOrder(Model model, @PathVariable(name="id") long id){
+        Order order = orderService.read(id);
+        OrderService.delete(order);
+        return "redirect:/dogs/admin/orders/";
     }
 
     @GetMapping(value="/dog/{breed}")

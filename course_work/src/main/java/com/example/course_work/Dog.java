@@ -35,4 +35,7 @@ public class Dog implements Jsonable{
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "ordered")
+    private boolean ordered;
 }

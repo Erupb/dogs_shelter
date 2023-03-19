@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="scroll.css">
+    <!--<link rel="stylesheet" href="scroll.css">-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Все собаки в приюте</title>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -28,62 +28,45 @@
     </nav>
 </head>
 <body>
-    <table class="container table table-bordered">
-        <tr th:if="${#lists.isEmpty(dogs)}">
-            <td class = "container alert alert-danger mt-5" role="alert"> Собак не найдено </td>
+<table class="container table table-bordered">
+    <tr th:if="${#lists.isEmpty(orders)}">
+        <td class = "container alert alert-danger mt-5" role="alert"> Заявок нет </td>
+    </tr>
+
+    <div th:if="${not #lists.isEmpty(orders)}">
+        <thead>
+        <tr>
+            <th class="col"> Уникальный номер </th>
+            <th class="col"> USERID </th>
+            <th class="col"> DOGID </th>
+            <th class="col"> Действия </th>
+
         </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <div class="row">
+                <td class="col">
+                    <span th:text="${order.id}">Id</span>
+                    <br>
+                </td>
+                <td class="text-center col"><span th:text="${order.user_id.id}"> Id user </span></td>
+                <td class="text-center col"><span th:text="${order.dog_id.id}"> Id dog </span></td>
+                <td class="text-center col">
+                    <form th:action="'/dogs/admin/orders/' + ${order.id} + '/remove'" method="post">
+                        <button type="submit" class="btn btn-success" style="width: 100%">Заявка исполнена</button>
+                    </form>
+                </td>
 
-        <div th:if="${not #lists.isEmpty(dogs)}">
-            <thead>
-                <tr>
-                    <th class="col"> Уникальный номер </th>
-                    <th class="col"> Кличка </th>
-                    <th class="col"> Порода </th>
-                    <th class="col text-center"> Фото </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="dog : ${dogs}">
-                    <div class="row" th:unless="${dog.ordered}">
-                        <td class="col">
-                            <span th:text="${dog.id}">Id</span>
-                            <br>
-                            <a th:href="@{/dogs/watch/} + ${dog.id}"><button type="button" class="btn btn-primary watch_button">Посмотреть подробную информацию</button></a>
-                            <div style="padding-top: 10vw">
-                                <div>
-                                    <br>
-                                    <a th:href="@{/dogs/admin/} + ${dog.id}"><button class="btn btn-warning">Удалить сведения о собаке</button></a>
-                                </div>
-                                <div>
-                                    <a th:href="@{/dogs/get/} + ${dog.id}"><button class="btn btn-light"> Взять собаку к себе домой </button></a>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="text-center col"><span th:text="${dog.name}"> Кличка </span></td>
-                        <td class="text-center col"><span th:text="${dog.breed}"> Порода </span></td>
-                        <td class="text-center col"><img class="dogs_img" th:src="${dog.img}"></img></td>
-                    </div>
-                </tr>
-            </tbody>
-        </div>
+            </div>
+        </tr>
+        </tbody>
+    </div>
 
-    </table>
-    <a href="/dogs/add_dogs"><button type="button" class="btn btn-success add_button">Добавить сведения о новой собаке</button></a>
+</table>
 
 </body>
-<style>
-    .dogs_img{
-        width:15vw;
-        height:15vw;
-        object-fit: contain;
-    }
-    .add_button{
-        margin-left: 40%;
-    }
-
-    .btn-light{
-        background-color: #b3f9d1;
-    }
+<!--<style>
     table.table-bordered{
         border:1px solid blue;
         margin-top:20px;
@@ -105,7 +88,7 @@
         box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         border-radius: 5px;
     }
-</style>
+</style>-->
 <!-- JS, Popper.js, and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
