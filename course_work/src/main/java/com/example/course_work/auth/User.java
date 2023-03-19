@@ -33,6 +33,9 @@ public class User implements Serializable, UserDetails {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "phone_number", length = 20)
+    private String phone_number;
+
     //'CUSTOMER'::character varying
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
