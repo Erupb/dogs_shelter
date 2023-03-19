@@ -1,4 +1,4 @@
-# Java Spring Course Work 5th Semester MIREA #
+# Java Spring Course Work 6th Semester MIREA #
 
 Сервис позволяет организовывать работу собачьего приюта:
 
