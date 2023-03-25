@@ -26,15 +26,15 @@ public class ApplicationUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        ApplicationUser applicationUser = new ApplicationUser(userRepository.findUserByUsername(username));
-        if (applicationUser.getUser() == null) {
-            throw new UsernameNotFoundException(String.format("Username: %s not found", username));
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("No user found for "+ username + ".");
         }
-        return applicationUser;
+        return user;
     }
 
     public String signUpUser(User user) {
-        boolean userExists = userRepository.findUserByUsername(user.getUsername()) != null;
+        boolean userExists = userRepository.findByUsername(user.getUsername()) != null;
         if (userExists) {
             return "user_exists";
         }

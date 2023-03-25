@@ -79,32 +79,61 @@
         <div th:each="dog : ${dogs}" class="row"  style="padding-top: 2vw">
             <div class="col text-center"><img id="dogimg" class="dogs_img" th:src="${dog.img}"></img></div>
             <div class="col text-center text-padding"><span id="dogname" th:text="${dog.name}"> Кличка </span></div>
-            <div class="col text-center text-padding"><span id="doage" th:text="${dog.age}"> Возраст </span></div>
+            <div class="col text-center text-padding"><span id="dogage" th:text="${dog.age}"> Возраст </span></div>
             <div class="col text-center text-padding"><span id="dogbreed" th:text="${dog.breed}"> Порода </span></div>
             <div class="col text-center text-padding"><span id="dogdesc" th:text="${dog.description}"> Краткая информация о собаке </span></div><br>
-
-            <div>
-                <p>Пожалуйста, введите свой номер телефона или телеграм Id для обратной связи или оставьте установленный логин</p>
-                <span type="text" required="" id="contact" placeholder="+7xxxxxxxxxx или @TgId">Контакт не установлен</span>
-                <p>Установить другой контакт</p>
-                <input id="inputNewContact">
-                <button id="acceptNewContact">Добавить другой контакт</button>
-                <button id="contactButton">Отправить данные</button>
-            </div>
-
 
         </div>
     </div>
     <div th:each="dog : ${dogs}" style="text-align: center;">
-        <form th:action="'/dogs/get/' + ${dog.id} + '/home'" method="post">
+        <form th:action="'/dogs/get/' + ${dog.id} + '/home'" th:object="${order}" method="post">
             <button type="submit" id="Take_dog_button" class="btn btn-success" style="width: 100%">Взять собаку к себе домой</button>
         </form>
+        <!--<form th:method="POST" th:action="@{/dogs/add_dogs}" th:object="${dog}" class="container">
+            <h2>Введите данные собаки</h2>
+            <div class="form-group">
+                <p>
+                    <label for="name">Кличка</label>
+                    <input type="text" class="form-control" th:field="*{name}" id="name" aria-describedby="nameHelp" placeholder="Кличка"/>
+                    <small id="nameHelp" class="form-text text-muted">Пожалуйста, указывайте имя собаки с большой буквы!</small>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label for="name">Возраст</label>
+                    <input type="text" class="form-control" th:field="*{age}" id="age" aria-describedby="nameHelp" placeholder="Возраст"/>
+                </p>
+            </div>
+
+            <div class="form-group">
+                <p>
+                    <label for="breed">Порода</label>
+                    <input type="text" th:field="*{breed}" id="breed" class="form-control" placeholder="Порода">
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label for="name">Краткие сведения</label>
+                    <input type="text" class="form-control" th:field="*{description}" id="description" aria-describedby="nameHelp" placeholder="Краткое описание"/>
+                </p>
+            </div>
+            <div class="form-group">
+                <p>
+                    <label for="img">URL картинки</label>
+                    <input type="text" th:field="*{img}" class="form-control" id="img" aria-describedby="urlHelp" placeholder="Вставьте URL картинки"/>
+                    <small id="urlHelp" class="form-text text-muted">Скопируйте любую картинку из интернета или выложите свою на доступные сервисы и скопируйте предоставленную ссылку.</small>
+                </p>
+            </div>
+            <button id="addDog" type="submit" class="btn btn-primary">Создать</button>
+            <a href="/dogs">Вернуться на страницу всех собак</a>
+
+
+        </form>-->
     </div>
 
 </div>
 <style>
     #Take_dog_button{
-        visibility: hidden;
         margin-top: 2vw;
     }
 
@@ -140,7 +169,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script>
-    let contact = document.getElementById("contact").innerHTML;
+    /*let contact = document.getElementById("contact").innerHTML;
     let imgURL = document.getElementById("dogimg").innerHTML;
     let name = document.getElementById("dogname").innerHTML;
     let age = document.getElementById("doage").innerHTML;
@@ -171,6 +200,6 @@
         $.ajax(settings).done(function (response) {
             console.log(response);
         });
-    }
+    }*/
 </script>
 </html>

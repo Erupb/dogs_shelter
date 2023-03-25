@@ -1,11 +1,15 @@
 package com.example.course_work;
 
+import com.example.course_work.auth.ApplicationUserService;
+import com.example.course_work.auth.User;
+import com.example.course_work.auth.UserRepository;
 import com.example.course_work.services.DogService;
 import com.example.course_work.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +22,11 @@ public class DogController {
     private final DogService dogService;
     private final OrderService orderService;
 
-    @Autowired
+    //@Autowired
     private DogRepository dogRepository;
     private OrderRepository orderRepository;
+    private UserRepository userRepository;
+    private ApplicationUserService applicationUserService;
 
     @Autowired
     public DogController(DogService dogDriver, OrderService orderService) {
@@ -37,6 +43,12 @@ public class DogController {
     @GetMapping("")
     public String showDogs(Model model){
         model.addAttribute("dogs", dogService.readAll());
+        //System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+        //System.out.println(userRepository.findByUsername("customer1").toString());
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+
+        //System.out.println(applicationUserService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
+
         return "show_dogs.html";
     }
 
@@ -67,10 +79,13 @@ public class DogController {
         return "take_dog.html";
     }
 
-    @PostMapping (value="/get/{id}/home")
-    public String GetDog(Model model, @PathVariable(name="id") long id){
-        Dog dog = dogService.read(id);
-        DogService.delete(dog);
+    @PostMapping(value = "/get/{id}/home")
+    public String CreateOrder(@ModelAttribute("order") Order order, @PathVariable(name="id") long id) {
+        System.out.println("Order created");
+        order.setDog_id((int) id);
+        order.setUser_name(SecurityContextHolder.getContext().getAuthentication().getName());
+        orderService.create(order);
+        ТУТ ТАКЖЕ НЕОБХОДИМО УСТАНОВИТЬ ORDERED СОБАКИ В TRUE.
         return "show_dogs.html";
     }
 

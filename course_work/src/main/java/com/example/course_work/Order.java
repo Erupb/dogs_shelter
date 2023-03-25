@@ -20,11 +20,9 @@ public class Order implements Jsonable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn(name = "user_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    private User user_id;
+    @Column(name = "user_name")
+    private String user_name;
 
     @JoinColumn(name = "dog_id")
-    @OneToOne(fetch = FetchType.LAZY)
-    private User dog_id;
+    private int dog_id;
 }

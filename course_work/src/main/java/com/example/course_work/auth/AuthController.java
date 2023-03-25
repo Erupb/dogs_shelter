@@ -18,14 +18,10 @@ public class AuthController {
 
 
     @GetMapping("/login")
-    public String getLoginPage() {
-        return "login.html";
-    }
+    public String getLoginPage() {return "login.html";}
 
     @GetMapping("")
-    public String getIndexPage() {
-        return "index.html";
-    }
+    public String getIndexPage() {return "index.html";}
 
     @GetMapping("registration")
     public String getRegistrationPage(@ModelAttribute("user") User user) {
