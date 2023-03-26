@@ -45,13 +45,6 @@ public class DogController {
     @GetMapping("")
     public String showDogs(Model model){
         model.addAttribute("dogs", dogService.readAll());
-        //System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
-        //System.out.println(userRepository.findByUsername("customer1").toString());
-        System.out.println(userRepository.findUserByUsername("customer57").getId());
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
-
-        //System.out.println(applicationUserService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
-
         return "show_dogs.html";
     }
 
@@ -84,11 +77,13 @@ public class DogController {
 
     @PostMapping(value = "/get/{id}/home")
     public String CreateOrder(@ModelAttribute("order") Order order, @PathVariable(name="id") long id) {
-        System.out.println("Order created");
         order.setDog_id((int) id);
         order.setUser_id(userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
         orderService.create(order);
-        //ТУТ ТАКЖЕ НЕОБХОДИМО УСТАНОВИТЬ ORDERED СОБАКИ В TRUE.
+        //System.out.println(dogService.read(id));
+        //System.out.println(dogRepository.getById(id));
+        //dogService.read(id).setOrdered(true);
+        dogService.updateDogOrdered(id);
         return "show_dogs.html";
     }
 
@@ -107,10 +102,12 @@ public class DogController {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @PostMapping (value="/admin/orders/{id}/remove")
-    public String DeleteOrder(Model model, @PathVariable(name="id") long id){
-        Order order = orderService.read(id);
+    @PostMapping (value="/admin/orders/{orderid}/remove/{dogid}")
+    public String DeleteOrder(Model model, @PathVariable(name="orderid") long orderid, @PathVariable(name="dogid") long dogid){
+        Order order = orderService.read(orderid);
         OrderService.delete(order);
+        Dog dog = dogService.read(dogid);
+        DogService.delete(dog);
         return "redirect:/dogs/admin/orders/";
     }
 

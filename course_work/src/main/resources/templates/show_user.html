@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+  <meta charset="UTF-8">
+  <title>Взять собаку</title>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Навигация</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">На главную</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/dogs">Список собак <!--<span class="sr-only">(current)</span>--></a>
+        </li>
+      </ul>
+      <div class="form-inline my-2 my-lg-0">
+        <a href="/logout"><button class="btn btn-outline-success my-2 my-sm-0">Выйти</button></a>
+      </div>
+    </div>
+  </nav>
+</head>
+<body>
+<!--
+<table>
+    <thead>
+    <tr>
+        <th> Кличка </th>
+        <th> Порода </th>
+        <th> Фото </th>
+    </tr>
+    </thead>
+    <tbody th:each="dog : ${dogs}", th:with="dog_id=${dog.id}">
+        <tr>
+            <td><span th:text="${dog.name}"> Кличка </span></td>
+            <td><span th:text="${dog.breed}"> Порода </span></td>
+            <td><img class="dogs_img" th:src="${dog.img}"></img></td>
+        </tr>
+
+
+    </tbody>
+</table>
+<div th:each="dog : ${dogs}"}>
+    <form th:action="'/dogs/get/' + ${dog.id} + '/home'" method="post">
+        <button type="submit">Взять собаку к себе домой</button>
+    </form>
+</div>
+
+<a href="/">Вернуться на главную страницу</a>
+</body>
+<style>
+    .dogs_img{
+        width:15vw;
+        height:15vw;
+        object-fit: contain;
+    }
+</style>
+-->
+
+<div class="container delete_container" >
+  <div th:if="${#lists.isEmpty(users)}">
+    <h1 class = "container alert alert-danger mt-5" role="alert"> Пользователь не найден </h1>
+  </div>
+
+  <div th:if="${not #lists.isEmpty(users)}">
+    <b class="row">
+      <div class="col text-center"> Никнейм </div>
+      <div class="col text-center"> Номер телефона </div>
+
+    </b>
+    <div th:each="user : ${users}" class="row"  style="padding-top: 2vw">
+      <div class="col text-center text-padding"><span id="username" th:text="${user.username}"> Никнейм </span></div>
+      <div class="col text-center text-padding"><span id="phone_number" th:text="${user.phone_number}"> Номер телефона </span></div>
+
+    </div>
+  </div>
+  <a href="/dogs/admin/orders">На страницу заявок</a>
+
+</div>
+<style>
+  #Take_dog_button{
+    margin-top: 2vw;
+  }
+
+  .dogs_img{
+    width:12vw;
+    height:12vw;
+    object-fit: contain;
+  }
+  .delete_container{
+    max-width: 50%;
+  }
+  .text-padding{
+    padding-top: 3vw;
+  }
+
+  @media screen and (max-width: 700px){
+    .dogs_img{
+      width:8vw;
+      height:8vw;
+    }
+    .delete_container{
+      max-width: 80%;
+      font-size: 0.7rem;
+    }
+    .text-padding{
+      padding-top: 1vw;
+    }
+  }
+</style>
+</body>
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script>
+</script>
+</html>

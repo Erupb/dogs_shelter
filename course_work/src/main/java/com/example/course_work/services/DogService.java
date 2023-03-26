@@ -52,6 +52,14 @@ public class DogService {
     }
 
     @Transactional
+    public void updateDogOrdered(Long id) {
+        log.info("Update dog by id");
+        Dog dog = dogRepository.getById(id);
+        dog.setOrdered(true);
+        dogRepository.save(dog);
+    }
+
+    @Transactional
     public boolean delete(long id) {
         log.info("Delete dog by id = {}", id);
         dogRepository.deleteById(id);

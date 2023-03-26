@@ -2,6 +2,7 @@ package com.example.course_work.auth;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,6 +36,12 @@ public class AuthController {
     @PostMapping("registration")
     public String signUpUser(@ModelAttribute("user") User user) {
         return applicationUserService.signUpUser(user);
+    }
+
+    @GetMapping(value="/get/user/{id}")
+    public String getUserById(Model model, @PathVariable(name="id") long id){
+        model.addAttribute("users", applicationUserService.read(id));
+        return "show_user.html";
     }
 
 }

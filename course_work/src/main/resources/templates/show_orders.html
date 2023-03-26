@@ -37,7 +37,7 @@
         <thead>
         <tr>
             <th class="col"> Уникальный номер </th>
-            <th class="col"> USERNAME </th>
+            <th class="col"> USERID </th>
             <th class="col"> DOGID </th>
             <th class="col"> Действия </th>
 
@@ -50,10 +50,17 @@
                     <span th:text="${order.id}">Id</span>
                     <br>
                 </td>
-                <td class="text-center col"><span th:text="${order.user_name}"> Username </span></td>
+                <td class="text-center col">
+                    <span th:text="${order.user_id}">
+
+                    </span>
+                    <form th:action="'/get/user/' + ${order.user_id}" method="get">
+                        <button type="submit" class="btn btn-info" style="width: 100%">Посмотреть информацию о пользователе</button>
+                    </form>
+                </td>
                 <td class="text-center col"><span th:text="${order.dog_id}"> Id dog </span></td>
                 <td class="text-center col">
-                    <form th:action="'/dogs/admin/orders/' + ${order.id} + '/remove'" method="post">
+                    <form th:action="'/dogs/admin/orders/' + ${order.id} + '/remove/' + ${order.dog_id}" method="post">
                         <button type="submit" class="btn btn-success" style="width: 100%">Заявка исполнена</button>
                     </form>
                 </td>
