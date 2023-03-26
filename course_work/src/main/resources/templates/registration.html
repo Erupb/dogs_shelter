@@ -31,15 +31,15 @@
         <h2>Пожалуйста, зарегистрируйтесь в системе!</h2>
         <p>
             <label for="username" >Логин</label>
-            <input type="text" th:field="*{username}" class="form-control" id="username" placeholder="Username"/>
+            <input type="text" th:field="*{username}" required class="form-control" id="username" placeholder="Username"/>
         </p>
         <p>
             <label for="password" >Пароль</label>
-            <input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password"/>
+            <input type="password" th:field="*{password}" required class="form-control" id="password" placeholder="Password"/>
         </p>
         <p>
             <label for="phone_number" >Номер телефона</label>
-            <input type="text" th:field="*{phone_number}" class="form-control" id="phone_number" placeholder="+7xxxxxxxxxx"/>
+            <input type="text" th:field="*{phone_number}" required class="form-control" id="phone_number" placeholder="+7xxxxxxxxxx"/>
         </p>
         <button type="submit" class="btn btn-success">Зарегистрироваться</button>
         <a href="/login"><button type="button" class="btn btn-warning"> Уже зарегистрированы?</button></a>
