@@ -1,6 +1,7 @@
 package com.example.course_work.auth;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class AuthController {
         return applicationUserService.signUpUser(user);
     }
 
+    @Secured("ADMIN")
     @GetMapping(value="/get/user/{id}")
     public String getUserById(Model model, @PathVariable(name="id") long id){
         model.addAttribute("users", applicationUserService.read(id));
