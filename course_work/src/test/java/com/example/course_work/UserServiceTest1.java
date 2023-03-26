@@ -31,7 +31,7 @@ class UserServiceTest1 {
         user.setUsername("user");
 
         // when
-        Mockito.when(userRepository.findByUsername(user.getUsername())).thenReturn(user);
+        Mockito.when(userRepository.findUserByUsername(user.getUsername())).thenReturn(user);
 
         // then
         Assertions.assertEquals(user.getUsername(), underTest.loadUserByUsername(user.getUsername()).getUsername());

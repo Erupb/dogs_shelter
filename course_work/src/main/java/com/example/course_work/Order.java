@@ -20,9 +20,12 @@ public class Order implements Jsonable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_name")
-    private String user_name;
+    @JoinColumn(name = "user_id")
+    @Column(name = "user_id")
+    private Long user_id;
 
     @JoinColumn(name = "dog_id")
+    @Column(name = "dog_id")
     private int dog_id;
+
 }

@@ -22,16 +22,18 @@ public class DogController {
     private final DogService dogService;
     private final OrderService orderService;
 
-    //@Autowired
+    @Autowired
     private DogRepository dogRepository;
     private OrderRepository orderRepository;
     private UserRepository userRepository;
     private ApplicationUserService applicationUserService;
 
     @Autowired
-    public DogController(DogService dogDriver, OrderService orderService) {
+    public DogController(DogService dogDriver, OrderService orderService, UserRepository userRepository, ApplicationUserService applicationUserService) {
         this.dogService = dogDriver;
         this.orderService = orderService;
+        this.userRepository = userRepository;
+        this.applicationUserService = applicationUserService;
     }
 
     @PostMapping(value="")
@@ -45,6 +47,7 @@ public class DogController {
         model.addAttribute("dogs", dogService.readAll());
         //System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
         //System.out.println(userRepository.findByUsername("customer1").toString());
+        System.out.println(userRepository.findUserByUsername("customer57").getId());
         System.out.println(SecurityContextHolder.getContext().getAuthentication());
 
         //System.out.println(applicationUserService.loadUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -83,9 +86,9 @@ public class DogController {
     public String CreateOrder(@ModelAttribute("order") Order order, @PathVariable(name="id") long id) {
         System.out.println("Order created");
         order.setDog_id((int) id);
-        order.setUser_name(SecurityContextHolder.getContext().getAuthentication().getName());
+        order.setUser_id(userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
         orderService.create(order);
-        ТУТ ТАКЖЕ НЕОБХОДИМО УСТАНОВИТЬ ORDERED СОБАКИ В TRUE.
+        //ТУТ ТАКЖЕ НЕОБХОДИМО УСТАНОВИТЬ ORDERED СОБАКИ В TRUE.
         return "show_dogs.html";
     }
 
