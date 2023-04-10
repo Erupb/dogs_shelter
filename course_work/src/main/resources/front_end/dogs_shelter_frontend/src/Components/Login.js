@@ -4,16 +4,16 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = async (event) => {
+    const login = async (event) => {
         event.preventDefault();
 
         const response = await fetch('http://localhost:8084/login', {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                 'Access-Control-Allow-Headers': '*',
 
             },
@@ -25,7 +25,7 @@ function Login() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form/* onSubmit={handleSubmit}*/>
             <label>
                 Логин:
                 <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -36,7 +36,7 @@ function Login() {
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
             <br/>
-            <button type="submit">Войти</button>
+            <button onClick={login} type="submit">Войти</button>
             <a href="/registration">Еще не зарегистрированы?</a>
         </form>
     );

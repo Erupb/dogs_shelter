@@ -1,6 +1,9 @@
 package com.example.course_work.auth;
 
 import lombok.AllArgsConstructor;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class AuthController {
     private ApplicationUserService applicationUserService;
 
@@ -35,9 +39,15 @@ public class AuthController {
         return "registration.html";
     }
 
-    @PostMapping("registration")
+    /*@PostMapping("registration")
     public String signUpUser(@ModelAttribute("user") User user) {
         return applicationUserService.signUpUser(user);
+    }*/
+    @RequestMapping(value="/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        applicationUserService.signUpUser(user);
+        return ResponseEntity.ok().build();
     }
 
     /*@Secured("ADMIN")
@@ -51,5 +61,4 @@ public class AuthController {
     public User getUserById(@PathVariable(name="id") long id){
         return applicationUserService.read(id);
     }
-
 }

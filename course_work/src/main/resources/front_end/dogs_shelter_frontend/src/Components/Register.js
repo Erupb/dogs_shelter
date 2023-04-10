@@ -5,29 +5,39 @@ function Login() {
     const [password, setPassword] = useState('');
     const [phone_number, setPhone_number] = useState('');
 
-    const handleSubmit = async (event) => {
+    const register = async (event) => {
         event.preventDefault();
 
         const response = await fetch('http://localhost:8084/registration', {
             method: 'POST',
-            mode: 'no-cors',
+            mode: 'cors',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': '*',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                 'Access-Control-Allow-Headers': '*',
 
             },
             body: JSON.stringify({ username, password, phone_number })
         });
-        /*console.log(username, password, phone_number);*/
+        console.log(username, password, phone_number);
         const data = await response.json();
 
         console.log(data);
     };
+    /*async function login(){
+        console.log(username, password, phone_number);
+        let item={username, password, phone_number};
+        let result = await fetch("http://localhost:8084/registration", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }
+        })
+    }*/
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form/* onSubmit={handleSubmit}*/>
             <label>
                 Логин:
                 <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
@@ -43,7 +53,8 @@ function Login() {
                 <input type="text" value={[phone_number]} onChange={(e) => setPhone_number(e.target.value)} />
             </label>
             <br/>
-            <button type="submit">Зарегистрироваться</button>
+            <button onClick={register} type="submit">Зарегистрироваться</button>
+            <a href="/login">Уже зарегистрированы?</a>
         </form>
     );
 }

@@ -6,7 +6,7 @@ import Dogs_list from "./Components/Dogs_pages/Dogs_list.js";
 import Navigation from "./Components/Navigation.js";
 import React from "react";
 import Login from "./Components/Login.js";
-import Register from "./Components/Register.js";
+import Registration_page from "./Components/Registration_page.js";
 
 const App = () => {
 
@@ -21,7 +21,7 @@ const App = () => {
                   <Route path="/dogs_page" element={<Dogs_list />} />
                   <Route path="/logout" element={<Login />} />
                   <Route path="/login" element={<Login />} />
-                  <Route path="/registration" element={<Register />} />
+                  <Route path="/registration" element={<Registration_page />} />
               </Routes>
           </BrowserRouter>
       </div>

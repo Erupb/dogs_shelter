@@ -5,6 +5,9 @@ import App from './App.js';
 import Navigation from './Components/Navigation.js';
 import reportWebVitals from './reportWebVitals.js';
 import Main_page from "./Components/Main_page.js";
+import app from "./App.js";
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
