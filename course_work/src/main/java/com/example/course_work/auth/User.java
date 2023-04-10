@@ -65,4 +65,8 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+    public String getPassword(){
+        return password;
+    }
 }

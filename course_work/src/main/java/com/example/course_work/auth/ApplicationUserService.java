@@ -36,6 +36,9 @@ public class ApplicationUserService implements UserDetailsService {
     }
 
     public String signUpUser(User user) {
+        /*System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        System.out.println(user.getPhone_number());*/
         boolean userExists = userRepository.findUserByUsername(user.getUsername()) != null;
         if (userExists) {
             return "user_exists";
