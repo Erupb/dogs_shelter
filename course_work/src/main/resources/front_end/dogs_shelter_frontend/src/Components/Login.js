@@ -4,6 +4,15 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    /*var details = {
+        'username': username,
+        'password': password,
+    };*/
+    var requestData = new URLSearchParams();
+    requestData.append('username', username);
+    requestData.append('password', password);
+
+    /*const formBody = Object.keys(details).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])).join('&');*/
     const login = async (event) => {
         event.preventDefault();
 
@@ -17,7 +26,9 @@ function Login() {
                 'Access-Control-Allow-Headers': '*',
 
             },
-            body: JSON.stringify({ username, password })
+            /*body: JSON.stringify({ username, password })*/
+            /*body: {username, password}*/
+            body: requestData
         });
         const data = await response.json();
 

@@ -54,10 +54,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomAccessDeniedHandler();
     }
 
-    @CrossOrigin(origins = "*")
-    protected void configure(AuthenticationManagerBuilder auth, HttpSecurity http) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
-        /*http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());*/
 
         auth.inMemoryAuthentication()
                 .withUser("admin1")
