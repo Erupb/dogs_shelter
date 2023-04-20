@@ -1,9 +1,9 @@
 package com.example.course_work;
 
-import com.example.course_work.auth.ApplicationUserService;
-import com.example.course_work.auth.UserRepository;
-import com.example.course_work.services.DogService;
-import com.example.course_work.services.OrderService;
+import com.example.course_work.service.UserService;
+import com.example.course_work.repository.UserRepository;
+import com.example.course_work.service.DogService;
+import com.example.course_work.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/dogs")
 public class DogController {
@@ -24,10 +25,10 @@ public class DogController {
     private DogRepository dogRepository;
     private OrderRepository orderRepository;
     private UserRepository userRepository;
-    private ApplicationUserService applicationUserService;
+    private UserService applicationUserService;
 
     @Autowired
-    public DogController(DogService dogDriver, OrderService orderService, UserRepository userRepository, ApplicationUserService applicationUserService) {
+    public DogController(DogService dogDriver, OrderService orderService, UserRepository userRepository, UserService applicationUserService) {
         this.dogService = dogDriver;
         this.orderService = orderService;
         this.userRepository = userRepository;
@@ -81,7 +82,7 @@ public class DogController {
     @PostMapping(value = "/get/{id}/home")
     public String CreateOrder(@ModelAttribute("order") Order order, @PathVariable(name="id") long id) {
         order.setDog_id((int) id);
-        order.setUser_id(userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
+        order.setUser_id(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
         orderService.create(order);
         //System.out.println(dogService.read(id));
         //System.out.println(dogRepository.getById(id));

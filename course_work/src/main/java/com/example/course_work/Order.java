@@ -1,6 +1,5 @@
 package com.example.course_work;
 
-import com.example.course_work.auth.User;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.example.course_work;
 
-import com.example.course_work.services.DogService;
+import com.example.course_work.service.DogService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
