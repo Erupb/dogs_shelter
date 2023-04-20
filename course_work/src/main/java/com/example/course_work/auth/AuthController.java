@@ -1,64 +1,79 @@
 package com.example.course_work.auth;
-
+import com.example.course_work.service.UserService;
 import lombok.AllArgsConstructor;
-
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.course_work.auth.api.AuthApi;
+import com.example.course_work.dto.AuthRequestDTO;
+import com.example.course_work.dto.AuthResponseDTO;
+import com.example.course_work.dto.RegisterUserDTO;
+import com.example.course_work.dto.UpdateUserDTO;
+import com.example.course_work.exception.DuplicateUsernameException;
+import com.example.course_work.exception.PasswordCheckException;
+import com.example.course_work.mapper.UserMapper;
+import com.example.course_work.model.User;
+import com.example.course_work.security.JwtTokenProvider;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
-public class AuthController {
-    private ApplicationUserService applicationUserService;
+public class AuthController implements AuthApi {
 
-    //I think here we need to redirect user to react authError page
-    @GetMapping("/authError")
-    public String getAuthErrorPage() {
-        return "authError.html";
+    private final AuthenticationManager manager;
+    private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterUserDTO userDTO) throws DuplicateUsernameException, PasswordCheckException {
+        try {
+            userService.loadUserByUsername(userDTO.getUsername());
+            throw new DuplicateUsernameException("Данная почта уже используется для другого аккаунта");
+        } catch(UsernameNotFoundException ex) {
+            userService.checkDTO(userDTO);
+            User user = userDTO.toUser();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setActive(true);
+            userService.create(user);
+            return new ResponseEntity<>("Вы успешно зарегистрировались в системе", HttpStatus.OK);
+        }
     }
 
-    //I think here we need to redirect user to react login page
-    @GetMapping("/login")
-    public String getLoginPage() {
-        return "login.html";
+    public ResponseEntity<?> authenticate(@RequestBody @Valid AuthRequestDTO request) throws UsernameNotFoundException {
+        String username = request.getUsername();
+        manager.authenticate(new UsernamePasswordAuthenticationToken(username, request.getPassword()));
+        User user = (User) userService.loadUserByUsername(request.getUsername());
+        String token = jwtTokenProvider.generateToken(user);
+        AuthResponseDTO response = AuthResponseDTO.builder()
+                .username(user.getUsername()).token(token)
+                .build();
+        return ResponseEntity.ok(response);
     }
 
-    //I think here we need to redirect user to react index page
-    @GetMapping("")
-    public String getIndexPage() {
-        return "index.html";
+    public ResponseEntity<?> editProfile(@RequestBody @Valid UpdateUserDTO dto, HttpServletRequest request)
+            throws PasswordCheckException {
+        String pass = userService.checkDTO(dto);
+        String token = jwtTokenProvider.resolveToken(request);
+        String username = jwtTokenProvider.getUsernameFromToken(token);
+        User user = (User) userService.loadUserByUsername(username);
+        userMapper.updateUserFromDto(dto, user);
+        if (pass != null) {
+            user.setPassword(pass);
+        }
+        userService.update(user);
+        return new ResponseEntity<>("Данные вашего профиля обновлены", HttpStatus.OK);
     }
 
-    //I think here we need to redirect user to react registration page
-    @GetMapping("registration")
-    public String getRegistrationPage(@ModelAttribute("user") User user) {
-        return "registration.html";
-    }
-
-    /*@PostMapping("registration")
-    public String signUpUser(@ModelAttribute("user") User user) {
-        return applicationUserService.signUpUser(user);
+    /*public void logout(HttpServletRequest request, HttpServletResponse response) {
+        SecurityContextLogoutHandler handler = new SecurityContextLogoutHandler();
+        handler.logout(request, response, null);
     }*/
-    @RequestMapping(value="/registration", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        applicationUserService.signUpUser(user);
-        return ResponseEntity.ok().build();
-    }
-
-    /*@Secured("ADMIN")
-    @GetMapping(value="/get/user/{id}")
-    public String getUserById(Model model, @PathVariable(name="id") long id){
-        model.addAttribute("users", applicationUserService.read(id));
-        return "show_user.html";
-    }*/
-    @Secured("ADMIN")
-    @GetMapping(value="/get/user/{id}")
-    public User getUserById(@PathVariable(name="id") long id){
-        return applicationUserService.read(id);
-    }
 }

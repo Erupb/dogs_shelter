@@ -8,6 +8,7 @@ function Login() {
     const register = async (event) => {
         event.preventDefault();
 
+
         const response = await fetch('http://localhost:8084/registration', {
             method: 'POST',
             mode: 'cors',
@@ -22,7 +23,7 @@ function Login() {
         });
         console.log(username, password, phone_number);
         const data = await response.json();
-
+        
         console.log(data);
     };
     /*async function login(){
@@ -40,7 +41,7 @@ function Login() {
         <form/* onSubmit={handleSubmit}*/>
             <label>
                 Логин:
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
             </label>
             <br/>
             <label>

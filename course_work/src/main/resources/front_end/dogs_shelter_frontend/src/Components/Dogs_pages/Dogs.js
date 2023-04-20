@@ -5,7 +5,7 @@ function Dogs() {
 
     useEffect(() => {
         const fetchDogs = async () => {
-            const response = await fetch('http://localhost:8084/dogs');
+            const response = await fetch('http://localhost:8084/dogs', {method:"GET"});
             const data = await response.json();
             setDogs(data);
         };
