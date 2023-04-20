@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests() //Запрос на вход
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/admin/**").hasAuthority(Permission.ADMIN_PERMISSION.getPermission())
+                .antMatchers("/dogs/admin/**").hasAuthority(Permission.ADMIN_PERMISSION.getPermission())
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
