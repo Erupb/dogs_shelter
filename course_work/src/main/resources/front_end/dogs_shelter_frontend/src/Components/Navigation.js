@@ -17,7 +17,7 @@ class Navigation extends React.Component {
                             >
 
                                 <NavDropdown.Item href="/">На главную</NavDropdown.Item>
-                                <NavDropdown.Item href="/dogs_page">
+                                <NavDropdown.Item href="/dogs">
                                     Список собак
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Login() {
+function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [phone_number, setPhone_number] = useState('');
@@ -9,7 +9,7 @@ function Login() {
         event.preventDefault();
 
 
-        const response = await fetch('http://localhost:8084/registration', {
+        const response = await fetch('http://localhost:8084/auth/register', {
             method: 'POST',
             mode: 'cors',
             headers: {
@@ -26,15 +26,20 @@ function Login() {
         
         console.log(data);
     };
-    /*async function login(){
+    /*async function register(){
         console.log(username, password, phone_number);
         let item={username, password, phone_number};
-        let result = await fetch("http://localhost:8084/registration", {
+        let result = await fetch("http://localhost:8084/auth/register", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            }
-        })
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password, phone_number })
+        });
+        console.log(username, password, phone_number);
+        const data = await result.json();
+
+        console.log(data);
     }*/
 
     return (
@@ -60,4 +65,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Register;

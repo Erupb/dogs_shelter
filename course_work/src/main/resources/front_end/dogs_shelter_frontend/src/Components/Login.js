@@ -68,39 +68,35 @@ function Login() {
     const login = async (event) => {
         event.preventDefault();
 
-        const response = await fetch('http://localhost:8084/login', {
+
+        const response = await fetch('http://localhost:8084/auth/login', {
             method: 'POST',
             mode: 'cors',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': 'http://localhost:8084',
                 'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                 'Access-Control-Allow-Headers': '*',
 
             },
-            body: requestData
+            body: JSON.stringify({ username, password })
         });
-        const data = response.json();
+        const data = await response.json();
 
-        console.log("AAAAAA")
-        console.log("We got" + data);
-        // set the state of the user
-        setUser(response.data)
-        // store the user in localStorage
-        localStorage.setItem('user', JSON.stringify(response.data))
-        console.log(response.data)
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('token', data.token);
     };
 
     function getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));
+        return JSON.parse(localStorage.getItem('username'));
     }
 
-    const handleSubmit = async e => {
+    /*const handleSubmit = async e => {
         e.preventDefault();
         const user = {username, password};
         // send the username and password to the server
         const response = await axios.post(
-            "http://localhost:8084/login",
+            "http://localhost:8084/auth/login",
             user
         );
         // set the state of the user
@@ -108,7 +104,7 @@ function Login() {
         // store the user in localStorage
         localStorage.setItem('user', response.data)
         console.log(response.data)
-    };
+    };*/
 
 // if there's a user show the message below
     if (user) {

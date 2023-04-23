@@ -73,11 +73,10 @@ public class DogController {
     }
 
     //On take_dog page we will just find dog by id from method showDogById and print this info on page with button "Send order" or smth like this
-    /*@GetMapping(value="/get/{id}")
-    public String getDogById(Model model, @PathVariable(name="id") long id){
-        model.addAttribute("dogs", dogService.read(id));
-        return "take_dog.html";
-    }*/
+    @GetMapping(value="/get/{id}")
+    public Dog getDogById(@PathVariable(name="id") long id){
+        return dogService.read(id);
+    }
 
     @PostMapping(value = "/get/{id}/home")
     public String CreateOrder(@ModelAttribute("order") Order order, @PathVariable(name="id") long id) {
