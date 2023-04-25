@@ -53,7 +53,7 @@ public class AuthController implements AuthApi {
         User user = (User) userService.loadUserByUsername(request.getUsername());
         String token = jwtTokenProvider.generateToken(user);
         AuthResponseDTO response = AuthResponseDTO.builder()
-                .username(user.getUsername()).token(token)
+                .username(user.getUsername()).token(token).id(user.getId())
                 .build();
         return ResponseEntity.ok(response);
     }

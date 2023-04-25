@@ -1,6 +1,8 @@
 package com.example.course_work.service;
 
-import com.example.course_work.Dog;
+import com.example.course_work.dto.IUserDTO;
+import com.example.course_work.exception.PasswordCheckException;
+import com.example.course_work.model.Dog;
 import com.example.course_work.DogRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j

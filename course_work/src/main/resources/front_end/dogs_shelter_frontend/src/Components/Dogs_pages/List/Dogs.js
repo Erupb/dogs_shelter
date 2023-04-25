@@ -68,6 +68,15 @@ function Dogs() {
                 ))}
                 </tbody>
             </table>
+            <div style={{ 'display': 'flex', 'flex-direction': 'row', 'margin': 'auto', 'width': '50%' }}>
+                <a href="/dogs/admin/add_dogs">
+                    <button type="button" className="btn btn-success add_button">Добавить сведения о новой собаке
+                    </button>
+                </a>
+                <a href="/dogs/admin/orders">
+                    <button type="button" className="btn btn-info add_button">Посмотреть список заявок</button>
+                </a>
+            </div>
         </div>
     );
 }

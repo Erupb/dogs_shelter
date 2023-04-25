@@ -1,5 +1,9 @@
 package com.example.course_work;
 
+import com.example.course_work.dto.AddDogDTO;
+import com.example.course_work.dto.AddOrderDTO;
+import com.example.course_work.model.Dog;
+import com.example.course_work.model.Order;
 import com.example.course_work.service.UserService;
 import com.example.course_work.repository.UserRepository;
 import com.example.course_work.service.DogService;
@@ -12,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -78,7 +83,7 @@ public class DogController {
         return dogService.read(id);
     }
 
-    @PostMapping(value = "/get/{id}/home")
+    /*@PostMapping(value = "/get/{id}/home")
     public String CreateOrder(@ModelAttribute("order") Order order, @PathVariable(name="id") long id) {
         order.setDog_id((int) id);
         order.setUser_id(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getId());
@@ -88,7 +93,16 @@ public class DogController {
         //dogService.read(id).setOrdered(true);
         dogService.updateDogOrdered(id);
         return "show_dogs.html";
+    }*/
+    @PostMapping(value = "/get/dog/home")
+    public ResponseEntity<?> CreateOrder(@RequestBody @Valid AddOrderDTO addOrderDTO) {
+        Order order = addOrderDTO.toOrder();
+        dogService.updateDogOrdered((long) order.getDog_id());
+        orderService.create(order);
+        return new ResponseEntity<>("Заявка успешно добавлена", HttpStatus.OK);
+
     }
+
 
     /*@Secured("ADMIN")
     @GetMapping(value="/admin/orders")
@@ -102,7 +116,7 @@ public class DogController {
         return orderService.readAll();
     }
 
-    @DeleteMapping(value="/{id}/remove")
+    @DeleteMapping(value="admin/{id}/remove")
     public ResponseEntity<?> delete(@PathVariable(name="id") long id) {
         final boolean deleted = dogService.delete(id);
         return deleted
@@ -135,11 +149,19 @@ public class DogController {
         return "add_dogs.html";
     }*/
 
-    @Secured("ADMIN")
-    @PostMapping(value = "add_dogs")
+    /*@Secured("ADMIN")
+    @PostMapping(value = "admin/add_dogs")
     public String CreateDog(@ModelAttribute("dog") Dog dog) {
         System.out.println("Dog created");
         return dogService.create(dog);
+    }*/
+
+    @PostMapping(value = "admin/add_dogs")
+    public ResponseEntity<?> CreateDog(@RequestBody @Valid AddDogDTO addDogDTO) {
+        Dog dog = addDogDTO.toDog();
+        dogService.create(dog);
+        return new ResponseEntity<>("Собака успешно добавлена", HttpStatus.OK);
+
     }
 
 }

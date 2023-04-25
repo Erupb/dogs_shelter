@@ -1,19 +1,20 @@
-package com.example.course_work;
+package com.example.course_work.model;
 
+import com.example.course_work.Jsonable;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "orders")
+@Table(name="orders")
+@Data
+@NoArgsConstructor
 @Getter
 @Setter
-@JsonSerialize
-@NoArgsConstructor
-public class Order implements Jsonable{
+@Builder
+@AllArgsConstructor
+public class Order implements Jsonable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

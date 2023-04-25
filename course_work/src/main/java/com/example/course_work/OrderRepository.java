@@ -1,5 +1,6 @@
 package com.example.course_work;
 
+import com.example.course_work.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

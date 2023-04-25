@@ -85,6 +85,7 @@ function Login() {
 
         localStorage.setItem('username', data.username);
         localStorage.setItem('token', data.token);
+        localStorage.setItem('id', data.id);
     };
 
     function getCurrentUser() {

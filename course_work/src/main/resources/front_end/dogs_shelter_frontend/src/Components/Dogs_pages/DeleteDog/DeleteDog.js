@@ -5,12 +5,10 @@ import '../../../Style/TableStyle.css'
 
 function DeleteDog(props) {
     const [dog, setDog] = useState([]);
-
+    let token = getTokenFromStorage();
+    const dog_id = window.location.pathname.split('/').pop();
     useEffect(() => {
         const fetchDogs = async () => {
-            let token;
-            token = getTokenFromStorage();
-            const dog_id = window.location.pathname.split('/').pop();
             const response = await fetch('http://localhost:8084/dogs/get/' + dog_id, {
                 method:"GET",
                 headers: {
@@ -26,6 +24,21 @@ function DeleteDog(props) {
         };
         fetchDogs();
     }, []);
+
+    const DeleteDog = async () => {
+        const response = await fetch('http://localhost:8084/dogs/' + dog_id + '/remove', {
+            method:"DELETE",
+            headers: {
+                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Methods': 'GET, POST, DELETE',
+                'Access-Control-Allow-Headers': '*',
+                Authorization: `Bearer ${token}`
+
+            },
+        });
+        const data = await response.json();
+        setDog(data);
+    };
 
     function getTokenFromStorage(){
         return localStorage.getItem('token');
@@ -55,11 +68,11 @@ function DeleteDog(props) {
                 </tbody>
             </table>
             {/* ДОБАВИТЬ ВОЗМОЖНОСТЬ УДАЛИТЬ СОБАКУ ИЗ СПИСКА. СЕРВЕРУ ПЕРЕДАЕТСЯ АЙДИШНИК СОБАКИ.*/}
-            {/*<div th:each="dog : ${dogs}" style="text-align: center;">
-                <button type="submit" id="Take_dog_button" className="btn btn-success" style="width: 100%">Взять
-                    собаку к себе домой
+            <div>
+                <button type="submit" onClick={DeleteDog} className="btn btn-outline-secondary" style={{ 'width': '100%' }}>
+                    Удалить собаку
                 </button>
-            </div>*/}
+            </div>
         </div>
     );
 }

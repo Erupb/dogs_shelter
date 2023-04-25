@@ -5,15 +5,18 @@ import '../../../Style/TableStyle.css'
 
 function GetDog(props) {
     const [dog, setDog] = useState([]);
+    let token;
+    const dog_id = window.location.pathname.split('/').pop();
+    token = getTokenFromStorage();
+    let user_id
+    user_id = getIdFromStorage();
 
     useEffect(() => {
         const fetchDogs = async () => {
-            let token;
-            token = getTokenFromStorage();
-            const dog_id = window.location.pathname.split('/').pop();
             const response = await fetch('http://localhost:8084/dogs/get/' + dog_id, {
                 method:"GET",
                 headers: {
+
                     'Access-Control-Allow-Origin': 'http://localhost:8084',
                     'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                     'Access-Control-Allow-Headers': '*',
@@ -27,8 +30,28 @@ function GetDog(props) {
         fetchDogs();
     }, []);
 
+    const GetDog = async () => {
+        const response = await fetch('http://localhost:8084/dogs/get/dog/home', {
+            method:"POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Methods': 'GET, POST, DELETE',
+                'Access-Control-Allow-Headers': '*',
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify({ dog_id, user_id })
+        });
+        const data = await response.json();
+        setDog(data);
+    };
+
     function getTokenFromStorage(){
         return localStorage.getItem('token');
+    }
+
+    function getIdFromStorage(){
+        return localStorage.getItem('id')
     }
 
     return (
@@ -55,11 +78,11 @@ function GetDog(props) {
                 </tbody>
             </table>
             {/* ДОБАВИТЬ ВОЗМОЖНОСТЬ ЗАБРАТЬ СОБАКУ К СЕБЕ ДОМОЙ. СЕРВЕРУ ПЕРЕДАЕТСЯ ИМЯ ИЛИ АЙДИ ЧТОБЫ ЗАПИСАТЬ ЗАЯВКУ. РЕШУ.*/}
-            {/*<div th:each="dog : ${dogs}" style="text-align: center;">
-                <button type="submit" id="Take_dog_button" className="btn btn-success" style="width: 100%">Взять
-                    собаку к себе домой
+            <div>
+                <button type="submit" onClick={GetDog} className="btn btn-outline-secondary" style={{ 'width': '100%' }}>
+                    Отправить заявку на получение собаки
                 </button>
-            </div>*/}
+            </div>
         </div>
     );
 }

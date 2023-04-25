@@ -9,6 +9,7 @@ import Login from "./Components/Login.js";
 import Registration_page from "./Components/Registration_page.js";
 import GetDog_page from "./Components/Dogs_pages/Get/GetDog_page.js";
 import DeleteDog_page from "./Components/Dogs_pages/DeleteDog/DeleteDog_page.js";
+import AddDog_page from "./Components/Dogs_pages/Add/AddDog_page.js";
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
                   <Route path="/dogs" element={<Dogs_list />} />
                   <Route path="/dogs/get/:id" element={<GetDog_page />} />
                   <Route path="/dogs/admin/:id" element={<DeleteDog_page />} />
+                  <Route path="/dogs/admin/add_dogs" element={<AddDog_page />} />
               </Routes>
           </BrowserRouter>
       </div>
