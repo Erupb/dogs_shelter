@@ -60,7 +60,7 @@ function Register() {
             </label>
             <br/>
             <button onClick={register} type="submit">Зарегистрироваться</button>
-            <a href="/login">Уже зарегистрированы?</a>
+            <a href="/src/Components/Authorization/Login">Уже зарегистрированы?</a>
         </form>
     );
 }

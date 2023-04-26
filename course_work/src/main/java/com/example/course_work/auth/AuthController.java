@@ -1,12 +1,18 @@
 package com.example.course_work.auth;
+import com.example.course_work.exception.WrongIdException;
+import com.example.course_work.model.Dog;
 import com.example.course_work.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.course_work.auth.api.AuthApi;
@@ -53,7 +59,7 @@ public class AuthController implements AuthApi {
         User user = (User) userService.loadUserByUsername(request.getUsername());
         String token = jwtTokenProvider.generateToken(user);
         AuthResponseDTO response = AuthResponseDTO.builder()
-                .username(user.getUsername()).token(token).id(user.getId())
+                .username(user.getUsername()).token(token).id(user.getId()).role(user.getRole())
                 .build();
         return ResponseEntity.ok(response);
     }
@@ -70,6 +76,12 @@ public class AuthController implements AuthApi {
         }
         userService.update(user);
         return new ResponseEntity<>("Данные вашего профиля обновлены", HttpStatus.OK);
+    }
+
+    @Secured("ADMIN")
+    @GetMapping(value="/admin/get/user/{id}")
+    public User getUserById(@PathVariable(name="id") long id) throws WrongIdException {
+        return userService.getById(id);
     }
 
     /*public void logout(HttpServletRequest request, HttpServletResponse response) {

@@ -32,8 +32,8 @@ function Dogs() {
 
     return (
         <div>
-            <h1>Список собак</h1>
-            <table className="table, table-bordered">
+            <h1 style={{ 'padding-left': '3vw' }}>Список собак</h1>
+            <table className="table, table-bordered"  style={{ 'margin': 'auto', 'width': '70%' }}>
                 <thead>
                 <tr>
                     <th>Действия</th>
@@ -63,17 +63,17 @@ function Dogs() {
                         <td>{dog.name}</td>
                         <td>{dog.breed}</td>
                         <td>{dog.age}</td>
-                        <td><img src={dog.img} alt={dog.name} style={{ width: '15vw', height: '15vw', objectFit: 'contain' }} /></td>
+                        <td><img src={dog.img} alt={dog.name} style={{ width: '17vw', height: '17vw', objectFit: 'contain' }} /></td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <div style={{ 'display': 'flex', 'flex-direction': 'row', 'margin': 'auto', 'width': '50%' }}>
+            <div style={{ 'display': 'flex', 'flex-direction': 'row', 'margin': 'auto', 'width': '30%' }} className={ "mt-0, ms-1, px-2, p-3" }>
                 <a href="/dogs/admin/add_dogs">
                     <button type="button" className="btn btn-success add_button">Добавить сведения о новой собаке
                     </button>
                 </a>
-                <a href="/dogs/admin/orders">
+                <a href="/dogs/admin/orders" style={{ 'padding-left': '3vw'}}>
                     <button type="button" className="btn btn-info add_button">Посмотреть список заявок</button>
                 </a>
             </div>

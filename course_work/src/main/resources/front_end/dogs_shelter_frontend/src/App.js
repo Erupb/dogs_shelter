@@ -5,11 +5,13 @@ import Main_page from "./Components/Main_page.js";
 import Dogs_list from "./Components/Dogs_pages/List/Dogs_list.js";
 import Navigation from "./Components/Navigation.js";
 import React from "react";
-import Login from "./Components/Login.js";
-import Registration_page from "./Components/Registration_page.js";
+import Login from "./Components/Authorization/Login.js";
+import Registration_page from "./Components/Authorization/Registration_page.js";
 import GetDog_page from "./Components/Dogs_pages/Get/GetDog_page.js";
 import DeleteDog_page from "./Components/Dogs_pages/DeleteDog/DeleteDog_page.js";
 import AddDog_page from "./Components/Dogs_pages/Add/AddDog_page.js";
+import Orders_page from "./Components/Orders/Orders_page.js";
+import User_page from "./Components/Client/User_page.js";
 
 const App = () => {
 
@@ -28,6 +30,8 @@ const App = () => {
                   <Route path="/dogs/get/:id" element={<GetDog_page />} />
                   <Route path="/dogs/admin/:id" element={<DeleteDog_page />} />
                   <Route path="/dogs/admin/add_dogs" element={<AddDog_page />} />
+                  <Route path="/dogs/admin/orders" element={<Orders_page />} />
+                  <Route path="/admin/get/user/:id" element={<User_page />} />
               </Routes>
           </BrowserRouter>
       </div>

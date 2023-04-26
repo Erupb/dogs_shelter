@@ -57,7 +57,7 @@ function GetDog(props) {
     return (
         <div>
             <h1>Подробные сведения о собаке</h1>
-            <table className="table, table-bordered">
+            <table className="table, table-bordered" style={{ 'margin': 'auto', 'width': '70%' }}>
                 <thead>
                 <tr>
                     <th>Кличка</th>
@@ -79,7 +79,7 @@ function GetDog(props) {
             </table>
             {/* ДОБАВИТЬ ВОЗМОЖНОСТЬ ЗАБРАТЬ СОБАКУ К СЕБЕ ДОМОЙ. СЕРВЕРУ ПЕРЕДАЕТСЯ ИМЯ ИЛИ АЙДИ ЧТОБЫ ЗАПИСАТЬ ЗАЯВКУ. РЕШУ.*/}
             <div>
-                <button type="submit" onClick={GetDog} className="btn btn-outline-secondary" style={{ 'width': '100%' }}>
+                <button type="submit" onClick={GetDog} className="btn btn-success" style={{ 'width': '30%', 'margin': 'auto', 'display': 'flex' }}>
                     Отправить заявку на получение собаки
                 </button>
             </div>

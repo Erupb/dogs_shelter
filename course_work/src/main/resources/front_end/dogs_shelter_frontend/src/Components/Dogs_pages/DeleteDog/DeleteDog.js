@@ -9,7 +9,7 @@ function DeleteDog(props) {
     const dog_id = window.location.pathname.split('/').pop();
     useEffect(() => {
         const fetchDogs = async () => {
-            const response = await fetch('http://localhost:8084/dogs/get/' + dog_id, {
+            const response = await fetch('http://localhost:8084/dogs/admin/' + dog_id, {
                 method:"GET",
                 headers: {
                     'Access-Control-Allow-Origin': 'http://localhost:8084',
@@ -26,7 +26,7 @@ function DeleteDog(props) {
     }, []);
 
     const DeleteDog = async () => {
-        const response = await fetch('http://localhost:8084/dogs/' + dog_id + '/remove', {
+        const response = await fetch('http://localhost:8084/dogs/admin/' + dog_id + '/remove', {
             method:"DELETE",
             headers: {
                 'Access-Control-Allow-Origin': 'http://localhost:8084',
@@ -47,7 +47,7 @@ function DeleteDog(props) {
     return (
         <div>
             <h1>Подробные сведения о собаке</h1>
-            <table className="table, table-bordered">
+            <table className="table, table-bordered" style={{ 'margin': 'auto', 'width': '70%' }}>
                 <thead>
                 <tr>
                     <th>Кличка</th>
@@ -63,13 +63,13 @@ function DeleteDog(props) {
                     <td>{dog.breed}</td>
                     <td>{dog.age}</td>
                     <td>{dog.description}</td>
-                    <td><img src={dog.img} alt={dog.name} style={{ width: '15vw', height: '15vw', objectFit: 'contain' }} /></td>
+                    <td><img src={dog.img} alt={dog.name} style={{ width: '17vw', height: '17vw', objectFit: 'contain' }} /></td>
                 </tr>
                 </tbody>
             </table>
             {/* ДОБАВИТЬ ВОЗМОЖНОСТЬ УДАЛИТЬ СОБАКУ ИЗ СПИСКА. СЕРВЕРУ ПЕРЕДАЕТСЯ АЙДИШНИК СОБАКИ.*/}
             <div>
-                <button type="submit" onClick={DeleteDog} className="btn btn-outline-secondary" style={{ 'width': '100%' }}>
+                <button type="submit" onClick={DeleteDog} className="btn btn-danger" style={{ 'width': '30%', 'margin': 'auto', 'display': 'flex' }}>
                     Удалить собаку
                 </button>
             </div>

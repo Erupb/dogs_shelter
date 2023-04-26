@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests() //Запрос на вход
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/dogs/admin/**").hasAuthority(Permission.ADMIN_PERMISSION.getPermission())
+                .antMatchers("/admin/**").hasAuthority(Permission.ADMIN_PERMISSION.getPermission())
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)

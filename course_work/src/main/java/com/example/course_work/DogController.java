@@ -70,12 +70,13 @@ public class DogController {
         return dogService.read(id);
     }
 
+    /*
     @PostMapping (value="/admin/{id}/remove")
-    public String DeleteDog(Model model, @PathVariable(name="id") long id){
+    public String DeleteDog(@PathVariable(name="id") long id){
         Dog dog = dogService.read(id);
         DogService.delete(dog);
         return "redirect:/dogs";
-    }
+    }*/
 
     //On take_dog page we will just find dog by id from method showDogById and print this info on page with button "Send order" or smth like this
     @GetMapping(value="/get/{id}")
@@ -125,12 +126,12 @@ public class DogController {
     }
 
     @PostMapping (value="/admin/orders/{orderid}/remove/{dogid}")
-    public String DeleteOrder(Model model, @PathVariable(name="orderid") long orderid, @PathVariable(name="dogid") long dogid){
+    public ResponseEntity<?> DeleteOrder(@PathVariable(name="orderid") long orderid, @PathVariable(name="dogid") long dogid){
         Order order = orderService.read(orderid);
         OrderService.delete(order);
         Dog dog = dogService.read(dogid);
         DogService.delete(dog);
-        return "redirect:/dogs/admin/orders/";
+        return new ResponseEntity<>("Заявка успешно удалена", HttpStatus.OK);
     }
 
     //Not used
