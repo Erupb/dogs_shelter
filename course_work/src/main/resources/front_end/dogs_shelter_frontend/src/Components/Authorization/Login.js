@@ -86,11 +86,10 @@ function Login() {
         localStorage.setItem('username', data.username);
         localStorage.setItem('token', data.token);
         localStorage.setItem('id', data.id);
-        localStorage.setItem('role', data.role);
     };
 
     function getCurrentUser() {
-        return JSON.parse(localStorage.getItem('username'));
+        return localStorage.getItem('username');
     }
 
     /*const handleSubmit = async e => {
@@ -109,8 +108,15 @@ function Login() {
     };*/
 
 // if there's a user show the message below
-    if (user) {
-        return <div>{user.name} is loggged in</div>;
+    if (getCurrentUser()) {
+        let user_login = getCurrentUser();
+        return <div>
+            <p>{user_login}, you are ready loggged in!</p>
+            <button onClick={ ()=>{
+                localStorage.clear();
+                window.location.reload();
+            }}>Сменить пользователя</button>
+        </div>;
     }
 
     // if there's no user, show the login form
@@ -132,7 +138,8 @@ function Login() {
                     onChange={({target}) => setPassword(target.value)}
                 />
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" className="btn btn-primary">Login</button>
+            {/* onClick={()=>{window.location.reload();}}*/}
         </form>
     );
 }

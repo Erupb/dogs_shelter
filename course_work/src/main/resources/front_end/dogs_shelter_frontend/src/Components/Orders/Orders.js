@@ -49,7 +49,7 @@ function Orders() {
 
     return (
         <div>
-            <h1 style={{ 'padding-left': '3vw' }}>Заявки</h1>
+            <h1 style={{ 'paddingLeft': '3vw' }}>Заявки</h1>
             <table className="table, table-bordered"  style={{ 'margin': 'auto', 'width': '70%' }}>
                 <thead>
                 <tr>

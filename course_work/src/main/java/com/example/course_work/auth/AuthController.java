@@ -1,6 +1,8 @@
 package com.example.course_work.auth;
 import com.example.course_work.exception.WrongIdException;
 import com.example.course_work.model.Dog;
+import com.example.course_work.model.Role;
+import com.example.course_work.repository.UserRepository;
 import com.example.course_work.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,7 @@ public class AuthController implements AuthApi {
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private final UserRepository userRepository;
 
     public ResponseEntity<?> register(@RequestBody @Valid RegisterUserDTO userDTO) throws DuplicateUsernameException, PasswordCheckException {
         try {
@@ -59,7 +62,7 @@ public class AuthController implements AuthApi {
         User user = (User) userService.loadUserByUsername(request.getUsername());
         String token = jwtTokenProvider.generateToken(user);
         AuthResponseDTO response = AuthResponseDTO.builder()
-                .username(user.getUsername()).token(token).id(user.getId()).role(user.getRole())
+                .username(user.getUsername()).token(token).id(user.getId())/*.role(user.getRole())*/
                 .build();
         return ResponseEntity.ok(response);
     }
@@ -82,6 +85,11 @@ public class AuthController implements AuthApi {
     @GetMapping(value="/admin/get/user/{id}")
     public User getUserById(@PathVariable(name="id") long id) throws WrongIdException {
         return userService.getById(id);
+    }
+
+    @GetMapping(value="/get/user_role/{username}")
+    public Role getUserById(@PathVariable(name="username") String username) {
+        return userRepository.findByUsername(username).getRole();
     }
 
     /*public void logout(HttpServletRequest request, HttpServletResponse response) {
