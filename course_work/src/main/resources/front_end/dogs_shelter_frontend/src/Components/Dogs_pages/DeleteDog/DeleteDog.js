@@ -36,6 +36,11 @@ function DeleteDog(props) {
 
             },
         });
+        let admin_deleted_dog = document.getElementById("admin_deleted_dog");
+
+        if(response.ok){
+            admin_deleted_dog.style.visibility = "visible";
+        }
         const data = await response.json();
         setDog(data);
     };
@@ -67,11 +72,13 @@ function DeleteDog(props) {
                 </tr>
                 </tbody>
             </table>
-            {/* ДОБАВИТЬ ВОЗМОЖНОСТЬ УДАЛИТЬ СОБАКУ ИЗ СПИСКА. СЕРВЕРУ ПЕРЕДАЕТСЯ АЙДИШНИК СОБАКИ.*/}
             <div>
                 <button type="submit" onClick={DeleteDog} className="btn btn-danger" style={{ 'width': '30%', 'margin': 'auto', 'display': 'flex' }}>
                     Удалить собаку
                 </button>
+                <div id="admin_deleted_dog" style={{ "visibility": "hidden"}}>
+                    <h3 style={{ "width" : "50%", "margin": "auto" }}>Вы успешно удалили сведения о собаке</h3>
+                </div>
             </div>
         </div>
     );

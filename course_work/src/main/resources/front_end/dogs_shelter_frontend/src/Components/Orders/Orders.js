@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {Container} from 'react-bootstrap';
 import '../../Style/TableStyle.css'
 
 
@@ -39,6 +38,12 @@ function Orders() {
 
             },
         });
+        let admin_deleted_order = document.getElementById("admin_deleted_order");
+
+        if(response.ok){
+            admin_deleted_order.style.visibility = "visible";
+        }
+
         const data = await response.json();
         setOrders(data);
     };
@@ -72,6 +77,9 @@ function Orders() {
                 ))}
                 </tbody>
             </table>
+            <div id="admin_deleted_order" style={{ "visibility": "hidden"}}>
+                <h3 style={{ "width" : "50%", "margin": "auto" }}>Вы успешно удалили заявку</h3>
+            </div>
         </div>
     );
 }

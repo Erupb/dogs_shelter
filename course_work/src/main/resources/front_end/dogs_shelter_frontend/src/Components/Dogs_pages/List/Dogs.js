@@ -36,10 +36,20 @@ function Dogs() {
                 },
             });
             const data = await response.json();
+            validateDogs(data);
             setDogs(data);
+
         };
         fetchDogs();
     }, []);
+
+    function validateDogs(dogs){
+        for (var i = 0; i<dogs.length; i++){
+            if(dogs[i]["ordered"] === true){
+                delete dogs[i];
+            }
+        }
+    }
 
     const getUserRole = async () => {
         let token;
@@ -88,7 +98,7 @@ function Dogs() {
                                     <div>
                                         <div>
                                             <a href={"/dogs/get/" + dog.id}>
-                                                <button className="btn btn-success"> Взять собаку к себе домой</button>
+                                                <button className="btn btn-success">Взять собаку к себе домой</button>
                                             </a>
                                         </div>
                                         {show_admin ? (<div>
@@ -108,13 +118,6 @@ function Dogs() {
                         </tbody>
                     </table>
                     ):(
-                        /*<div style={{ "margin": "auto", "width":"30%", "height":"20vw", "display":"flex", "flex-direction":"column", "margin-top": "10vw", "background-color":"#3a7cb5" }}>
-                            <div style={{ "width":"50%" }}>
-                                <h2>Сначала войдите в аккаунт или зарегистрируйтесь</h2>
-                                <button type="button" className="btn btn-info add_button" style={{ "margin" : "auto", "width":"30vw" }}><a href="/login">Перейти</a>
-                                </button>
-                            </div>
-                        </div>*/
                         <div style={{"width":"30%", "height":"30%" }}>
                                 <Card style={{ width: '18rem', "margin":"auto" }}>
                                     <Card.Body>
@@ -132,12 +135,13 @@ function Dogs() {
                 <div style={{'display': 'flex', 'flexDirection': 'row', 'margin': 'auto', 'width': '30%'}}
                      className={"mt-0, ms-1, px-2, p-3"}>
                     <a href="/dogs/admin/add_dogs">
-                        <button type="button" className="btn btn-success add_button">Добавить сведения о новой
-                            собаке
+                        <button type="button" className="btn btn-success add_button">
+                            Добавить сведения о новой собаке
                         </button>
                     </a>
                     <a href="/dogs/admin/orders" style={{'paddingLeft': '3vw'}}>
-                        <button type="button" className="btn btn-info add_button">Посмотреть список заявок
+                        <button type="button" className="btn btn-info add_button">
+                            Посмотреть список заявок
                         </button>
                     </a>
                 </div>

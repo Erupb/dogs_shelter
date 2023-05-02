@@ -190,6 +190,7 @@ function Login() {
                 />
             </div>
             <button type="submit" className="btn btn-primary">Login</button>
+            <a href="/register">Еще не зарегистрированы?</a>
             {/* onClick={()=>{window.location.reload();}}*/}
             <h3 id={"validation_text_login"}></h3>
             <h3 id={"validation_text_pass"}></h3>

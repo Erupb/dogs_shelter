@@ -26,6 +26,11 @@ function AddDog() {
             },
             body: JSON.stringify({ breed, img, name, age, description, ordered })
         });
+        let admin_added_dog = document.getElementById("admin_added_dog");
+
+        if(response.ok){
+            admin_added_dog.style.visibility = "visible";
+        }
         /*console.log(username, password, phone_number);
         const data = await response.json();
 
@@ -64,6 +69,9 @@ function AddDog() {
             </label>
             <br/>
             <button onClick={addDog} type="submit">Добавить собаку</button>
+            <div id="admin_added_dog" style={{ "visibility": "hidden"}}>
+                <h3 style={{ "width" : "50%", "margin": "auto" }}>Вы успешно добавили собаку</h3>
+            </div>
         </form>
     );
 }

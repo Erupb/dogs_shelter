@@ -1,3 +1,4 @@
+/*
 import React, { useState, useEffect } from 'react';
 import {Container} from 'react-bootstrap';
 import '../../../Style/TableStyle.css'
@@ -134,4 +135,4 @@ function Dogs() {
     );
 }
 
-export default Dogs;
+export default Dogs;*/

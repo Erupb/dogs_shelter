@@ -42,6 +42,11 @@ function GetDog(props) {
             },
             body: JSON.stringify({ dog_id, user_id })
         });
+        let user_ordered_dog = document.getElementById("user_ordered_dog");
+
+        if(response.ok){
+            user_ordered_dog.style.visibility = "visible";
+        }
         const data = await response.json();
         setDog(data);
     };
@@ -82,6 +87,9 @@ function GetDog(props) {
                 <button type="submit" onClick={GetDog} className="btn btn-success" style={{ 'width': '30%', 'margin': 'auto', 'display': 'flex' }}>
                     Отправить заявку на получение собаки
                 </button>
+                <div id="user_ordered_dog" style={{ "visibility": "hidden"}}>
+                    <h3 style={{ "width" : "50%", "margin": "auto" }}>Вы успешно добавили заявку</h3>
+                </div>
             </div>
         </div>
     );

@@ -1,65 +1,92 @@
 import React from 'react';
-import {Container, Nav, Navbar, NavDropdown} from 'react-bootstrap';
+import {Button, Container, Form, Nav, Navbar, NavDropdown} from 'react-bootstrap';
 
 class Navigation extends React.Component {
+    checkLogin(){
+        let login = this.getLogin()
+        if(login){
+            return login;
+            /*username_visible.style.visibility = "visible";
+            console.log("user logged in");*/
+        } else{
+            /*console.log("user not logged in");
+            user_not_logon.style.visibility = "visible";*/
+            return null;
+        }
+    }
+
+    getLogin(){
+        let login = localStorage.getItem('username');
+        return login;
+    }
+
+
     render() {
-        return (
-            <Navbar variant="light" bg="light" expand="lg">
-                <Container fluid>
-                    <Navbar.Brand href="#home">Навигация</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="navbar-dark-example" />
-                    <Navbar.Collapse id="navbar-dark-example">
-                        <Nav>
-                            <NavDropdown
-                                id="nav-dropdown-dark-example"
-                                title="Действия"
-                                menuVariant="white"
+        if(this.checkLogin()) {
+            return (
+                <Navbar bg="light" expand="lg">
+                    <Container fluid>
+                        <Navbar.Brand href="#">Навигация</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="navbarScroll"/>
+                        <Navbar.Collapse id="navbarScroll">
+                            <Nav
+                                className="me-auto my-2 my-lg-0"
+                                style={{maxHeight: '100px'}}
+                                navbarScroll
                             >
-
-                                <NavDropdown.Item href="/">На главную</NavDropdown.Item>
-                                <NavDropdown.Item href="/dogs">
-                                    Список собак
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="/logout">
-                                    Выйти
-                                </NavDropdown.Item>
-                            </NavDropdown>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        );
-        /*return <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            {/!* eslint-disable-next-line jsx-a11y/anchor-is-valid *!/}
-            <a className="navbar-brand" href="#">Навигация</a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <a className="nav-link" href="/">На главную</a>
-                    </li>
-                    <li className="nav-item active">
-                        <a className="nav-link" href="/dogs_page">Список собак </a>
-                    </li>
-                </ul>
-                <div className="form-inline my-2 my-lg-0 nav_button_logout">
-                    <a href="/logout"><button className="btn btn-outline-success my-2 my-sm-0">Выйти</button></a>
-                </div>
-            </div>
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                    crossOrigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-                    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-                    crossOrigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-                    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-                    crossOrigin="anonymous"></script>
-
-        </nav>;*/
+                                <Nav.Link href="/">Главная</Nav.Link>
+                                <Nav.Link href="/dogs">Список собак</Nav.Link>
+                            </Nav>
+                            <Nav.Link className="d-flex">
+                                <div>
+                                    <p>{this.getLogin()}</p>
+                                    <Button variant="outline-success" onClick={() => {
+                                        window.location.href = "/logout";
+                                    }}>Выйти</Button>
+                                </div>
+                                {/*<div id="user_not_logon" style={{"visibility": "visible"}}>
+                                    <Button variant="outline-success" onClick={() => {
+                                        window.location.href = "/login";
+                                    }}>Войти</Button>
+                                </div>*/}
+                            </Nav.Link>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+            );
+        } else {
+            return (
+                <Navbar bg="light" expand="lg">
+                    <Container fluid>
+                        <Navbar.Brand href="#">Навигация</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="navbarScroll"/>
+                        <Navbar.Collapse id="navbarScroll">
+                            <Nav
+                                className="me-auto my-2 my-lg-0"
+                                style={{maxHeight: '100px'}}
+                                navbarScroll
+                            >
+                                <Nav.Link href="/">Главная</Nav.Link>
+                                <Nav.Link href="/dogs">Список собак</Nav.Link>
+                            </Nav>
+                            <Nav.Link className="d-flex">
+                                {/*<div id="username_visible" style={{"visibility": "hidden"}}>
+                                    <p>{this.getLogin()}</p>
+                                    <Button variant="outline-success" onClick={() => {
+                                        window.location.href = "/login";
+                                    }}>Выйти</Button>
+                                </div>*/}
+                                <div>
+                                    <Button variant="outline-success" onClick={() => {
+                                        window.location.href = "/login";
+                                    }}>Войти</Button>
+                                </div>
+                            </Nav.Link>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+            );
+        }
 
     }
 }

@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App.js';
-import Navigation from './Components/Navigation.js';
 import reportWebVitals from './reportWebVitals.js';
-import Main_page from "./Components/Main_page.js";
-import app from "./App.js";
 
 
 
@@ -13,7 +10,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-    {/*<Main_page />*/}
   </React.StrictMode>
 );
 

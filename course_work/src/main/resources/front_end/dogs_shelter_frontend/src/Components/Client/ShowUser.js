@@ -52,11 +52,16 @@ function ShowUser(props) {
                 <tbody>
                 <tr key={user.id}>
                     <td>{user.username}</td>
-                    <td>{user.phone_number}</td>
+                    <td>8{user.phone_number}</td>
                     <td>{user.role}</td>
                 </tr>
                 </tbody>
             </table>
+            <div style={{ "margin":"auto", "width":"50%" }}>
+                <button className="btn btn-info" >
+                    <a href="/dogs/admin/orders">Вернуться на страницу ордеров</a>
+                </button>
+            </div>
         </div>
     );
 }
