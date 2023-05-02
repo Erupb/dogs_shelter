@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Container, Card, Button} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 import '../../../Style/TableStyle.css'
 
 
@@ -108,23 +108,10 @@ function Dogs() {
                         </tbody>
                     </table>
                     ):(
-                        /*<div style={{ "margin": "auto", "width":"30%", "height":"20vw", "display":"flex", "flex-direction":"column", "margin-top": "10vw", "background-color":"#3a7cb5" }}>
-                            <div style={{ "width":"50%" }}>
-                                <h2>Сначала войдите в аккаунт или зарегистрируйтесь</h2>
-                                <button type="button" className="btn btn-info add_button" style={{ "margin" : "auto", "width":"30vw" }}><a href="/login">Перейти</a>
-                                </button>
-                            </div>
-                        </div>*/
-                        <div style={{"width":"30%", "height":"30%" }}>
-                                <Card style={{ width: '18rem', "margin":"auto" }}>
-                                    <Card.Body>
-                                        <Card.Title>Вы не авторизованы</Card.Title>
-                                        <Card.Text>
-                                            Перед использованием сервиса необходимо войти в аккаунт
-                                        </Card.Text>
-                                        <Button className="btn btn-info add_button"><a href="/login">Перейти</a></Button>
-                                    </Card.Body>
-                                </Card>
+                        <div style={{ "width" : "30%", "margin" : "auto" }}>
+                            <h2>Сначала войдите в аккаунт или зарегистрируйтесь</h2>
+                            <button type="button" className="btn btn-info add_button" style={{ "margin": "auto", "width": "30%" }}><a href="/login">Перейти</a>
+                            </button>
                         </div>
                     )
             }

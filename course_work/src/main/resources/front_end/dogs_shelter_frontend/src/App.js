@@ -12,6 +12,7 @@ import DeleteDog_page from "./Components/Dogs_pages/DeleteDog/DeleteDog_page.js"
 import AddDog_page from "./Components/Dogs_pages/Add/AddDog_page.js";
 import Orders_page from "./Components/Orders/Orders_page.js";
 import User_page from "./Components/Client/User_page.js";
+import Logout from "./Components/Authorization/Logout.js";
 
 const App = () => {
 
@@ -23,7 +24,7 @@ const App = () => {
                   {/* eslint-disable-next-line react/jsx-pascal-case */}
                   <Route path="/" element={<Main_page />} />
                   {/* eslint-disable-next-line react/jsx-pascal-case */}
-                  <Route path="/logout" element={<Login />} />
+                  <Route path="/logout" element={<Logout />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Registration_page />} />
                   <Route path="/dogs" element={<Dogs_list />} />

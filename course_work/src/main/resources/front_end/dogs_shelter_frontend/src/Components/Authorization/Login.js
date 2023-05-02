@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from "axios";
+import alert from "bootstrap/js/src/alert.js";
 
 function Login() {
     /*const [username, setUsername] = useState('');
@@ -66,6 +66,7 @@ function Login() {
     requestData.append('password', password);
 
     const login = async (event) => {
+        validateForm();
         event.preventDefault();
 
 
@@ -81,11 +82,35 @@ function Login() {
             },
             body: JSON.stringify({ username, password })
         });
+
+        let validation_text = document.getElementById("validation_text");
+        const status = response.status;
+        if(status == 401){
+            validation_text.innerHTML = "Введены неверные данные для входа";
+        } else if(status == 500){
+            validation_text.innerHTML = "Сервер не ответил на ваш запрос";
+        }
         const data = await response.json();
+
+        /*const response_info = response;
+        let validation_text = document.getElementById("validation_text");
+        let response_data = (await response_info.text()).split("[[")[0];
+        if(response_data == "Bad credentials"){
+            validation_text.innerHTML = "Введены неверные данные для авторизации";
+        }
+        else {
+            const data = await response_info.json();
+            console.log(data);
+*/
 
         localStorage.setItem('username', data.username);
         localStorage.setItem('token', data.token);
         localStorage.setItem('id', data.id);
+        if (response.ok) {
+            window.location.href = "/"
+        }
+
+
     };
 
     function getCurrentUser() {
@@ -119,28 +144,58 @@ function Login() {
         </div>;
     }
 
+    function validateForm() {
+        let validation_text_login = document.getElementById("validation_text_login");
+        let validation_text_pass = document.getElementById("validation_text_pass");
+
+        let uname = document.getElementById("uname").value;
+        if(uname == ""){
+            validation_text_login.innerHTML = "Логин не может быть пустым";
+        }
+        else {
+            validation_text_login.innerHTML = "";
+        }
+
+        let passwd = document.getElementById("passwd").value;
+        if(passwd == ""){
+            validation_text_pass.innerHTML = "Пароль не может быть пустым";
+        }
+        else if(!(/[A-Z]/.test(passwd))){
+            validation_text_pass.innerHTML = "Пароль должен содержать хотя бы одну заглавную букву";
+        }
+        else if(!(/\d/.test(passwd))){
+            validation_text_pass.innerHTML = "Пароль должен содержать хотя бы одну заглавную цифру";
+        } else validation_text_pass.innerHTML = "";
+    }
+
     // if there's no user, show the login form
     return (
         <form onSubmit={login}>
             <label htmlFor="username">Username: </label>
             <input
                 type="text"
+                id={"uname"}
                 value={username}
-                placeholder="enter a username"
+                placeholder="Введите логин"
                 onChange={({target}) => setUsername(target.value)}
             />
             <div>
                 <label htmlFor="password">password: </label>
                 <input
                     type="password"
+                    id={"passwd"}
                     value={password}
-                    placeholder="enter a password"
+                    placeholder="Введите пароль"
                     onChange={({target}) => setPassword(target.value)}
                 />
             </div>
             <button type="submit" className="btn btn-primary">Login</button>
             {/* onClick={()=>{window.location.reload();}}*/}
+            <h3 id={"validation_text_login"}></h3>
+            <h3 id={"validation_text_pass"}></h3>
+            <h3 id={"validation_text"}></h3>
         </form>
+
     );
 }
 
