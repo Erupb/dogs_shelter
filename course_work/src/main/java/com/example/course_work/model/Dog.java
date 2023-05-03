@@ -26,6 +26,9 @@ public class Dog implements Jsonable {
     @Column(name = "breed")
     private String breed;
 
+    @Column(name = "gender")
+    private String gender;
+
     // Ссылка на картинку
     @Column(name = "img")
     private String img;

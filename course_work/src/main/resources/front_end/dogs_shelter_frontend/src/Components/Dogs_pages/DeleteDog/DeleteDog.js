@@ -57,6 +57,7 @@ function DeleteDog(props) {
                 <tr>
                     <th>Кличка</th>
                     <th>Порода</th>
+                    <th>Пол</th>
                     <th>Возраст</th>
                     <th>Описание</th>
                     <th>Фото</th>
@@ -66,6 +67,7 @@ function DeleteDog(props) {
                 <tr key={dog.id}>
                     <td>{dog.name}</td>
                     <td>{dog.breed}</td>
+                    <td>{dog.gender}</td>
                     <td>{dog.age}</td>
                     <td>{dog.description}</td>
                     <td><img src={dog.img} alt={dog.name} style={{ width: '17vw', height: '17vw', objectFit: 'contain' }} /></td>

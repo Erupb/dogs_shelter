@@ -1,62 +1,8 @@
 import React, { useState } from 'react';
-import alert from "bootstrap/js/src/alert.js";
+import '../../Style/style.css'
+import {Button, Form} from "react-bootstrap";
 
 function Login() {
-    /*const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-
-    /!*var details = {
-        'username': username,
-        'password': password,
-    };*!/
-    var requestData = new URLSearchParams();
-    requestData.append('username', username);
-    requestData.append('password', password);
-
-    /!*const formBody = Object.keys(details).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key])).join('&');*!/
-    const login = async (event) => {
-        event.preventDefault();
-
-        const response = await fetch('http://localhost:8084/login', {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Access-Control-Allow-Origin': 'http://localhost:8084',
-                'Access-Control-Allow-Methods': 'GET, POST, DELETE',
-                'Access-Control-Allow-Headers': '*',
-
-            },
-            /!*body: JSON.stringify({ username, password })*!/
-            /!*body: {username, password}*!/
-            body: requestData
-        });
-        const data = await response.json();
-
-        console.log(data);
-
-    };
-
-    if (username) {
-        return <div>{username} is loggged in</div>;
-    }
-
-    return (
-        <form/!* onSubmit={handleSubmit}*!/>
-            <label>
-                Логин:
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-            </label>
-            <br/>
-            <label>
-                Пароль:
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            </label>
-            <br/>
-            <button onClick={login} type="submit">Войти</button>
-            <a href="/registration">Еще не зарегистрированы?</a>
-        </form>
-    );*/
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState()
@@ -170,26 +116,26 @@ function Login() {
 
     // if there's no user, show the login form
     return (
-        <form onSubmit={login}>
-            <label htmlFor="username">Username: </label>
+        <form onSubmit={login} className="auth">
+            <label htmlFor="username" className="required">Логин</label>
             <input
+                className="form-control"
                 type="text"
                 id={"uname"}
                 value={username}
                 placeholder="Введите логин"
                 onChange={({target}) => setUsername(target.value)}
             />
-            <div>
-                <label htmlFor="password">password: </label>
-                <input
-                    type="password"
-                    id={"passwd"}
-                    value={password}
-                    placeholder="Введите пароль"
-                    onChange={({target}) => setPassword(target.value)}
-                />
-            </div>
-            <button type="submit" className="btn btn-primary">Login</button>
+            <label style={{ "marginTop": "1vw" }} className="required" htmlFor="password">Пароль</label>
+            <input
+                className="form-control"
+                type="password"
+                id={"passwd"}
+                value={password}
+                placeholder="Введите пароль"
+                onChange={({target}) => setPassword(target.value)}
+            />
+            <button style={{ "marginTop": "1vw" }} type="submit" className="btn btn-primary">Войти</button>
             <a href="/register">Еще не зарегистрированы?</a>
             {/* onClick={()=>{window.location.reload();}}*/}
             <h3 id={"validation_text_login"}></h3>

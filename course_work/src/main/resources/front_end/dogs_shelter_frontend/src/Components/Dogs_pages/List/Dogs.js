@@ -86,6 +86,7 @@ function Dogs() {
                         <tr>
                             <th>Действия</th>
                             <th>Кличка</th>
+                            <th>Пол</th>
                             <th>Порода</th>
                             <th>Возраст</th>
                             <th>Фото</th>
@@ -98,28 +99,29 @@ function Dogs() {
                                     <div>
                                         <div>
                                             <a href={"/dogs/get/" + dog.id}>
-                                                <button className="btn btn-success">Взять собаку к себе домой</button>
+                                                <button className="btn btn-success dogs_button">Взять собаку к себе домой</button>
                                             </a>
                                         </div>
                                         {show_admin ? (<div>
                                             <a href={"/dogs/admin/" + dog.id}>
-                                                <button className="btn btn-warning">Удалить сведения о собаке</button>
+                                                <button className="btn btn-warning dogs_button">Удалить сведения о собаке</button>
                                             </a>
                                         </div>) : null}
                                     </div>
                                 </td>
                                 <td>{dog.name}</td>
+                                <td>{dog.gender}</td>
                                 <td>{dog.breed}</td>
                                 <td>{dog.age}</td>
                                 <td><img src={dog.img} alt={dog.name}
-                                         style={{width: '17vw', height: '17vw', objectFit: 'contain'}}/></td>
+                                         style={{width: '18vw', height: '18vw', objectFit: 'contain'}}/></td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
                     ):(
-                        <div style={{"width":"30%", "height":"30%" }}>
-                                <Card style={{ width: '18rem', "margin":"auto" }}>
+                        <div className="not_authorized">
+                                <Card>
                                     <Card.Body>
                                         <Card.Title>Вы не авторизованы</Card.Title>
                                         <Card.Text>

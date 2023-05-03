@@ -32,6 +32,9 @@ public class User implements Serializable, UserDetails {
     @Column(name = "phone_number")
     private String phone_number;
 
+    @Column(name = "initials")
+    private String initials;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;

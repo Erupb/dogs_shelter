@@ -40,3 +40,16 @@
 .table-bordered thead td {
     border-bottom-width: 2px;
 }
+
+.not_authorized{
+    width:30%;
+    height:30%;
+    margin:auto;
+}
+
+@media (max-width: 900px) {
+    .not_authorized{
+        width:50%;
+        height:50%;
+    }
+}

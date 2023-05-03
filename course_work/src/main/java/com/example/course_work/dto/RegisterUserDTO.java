@@ -24,11 +24,14 @@ public class RegisterUserDTO implements IUserDTO {
     @Size(min = 10, max = 10, message = "Номер телефона должен содержать 10 цифр")
     private String phone_number;
 
+    private String initials;
+
     public User toUser() {
         return User.builder()
                 .username(username)
                 .password(password)
                 .phone_number(phone_number)
+                .initials(initials)
                 .role(Role.USER).build();
     }
 }

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import '../../Style/style.css';
 
 function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [phone_number, setPhone_number] = useState('');
+    const [initials, setInitials] = useState('');
 
     const register = async (event) => {
         validateForm();
@@ -20,7 +22,7 @@ function Register() {
                 'Access-Control-Allow-Headers': '*',
 
             },
-            body: JSON.stringify({ username, password, phone_number })
+            body: JSON.stringify({ username, password, phone_number, initials })
         });
         let validation_text = document.getElementById("validation_text");
         const status = response.status;
@@ -90,23 +92,28 @@ function Register() {
     }
 
     return (
-        <form/* onSubmit={handleSubmit}*/>
-            <label>
-                Логин:
-                <input id={"uname"} type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
+        <form/* onSubmit={handleSubmit}*/ className="auth">
+            <label className="required">
+                Логин
             </label>
-            <br/>
-            <label>
-                Пароль:
-                <input id={"passwd"} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input className="form-control" id={"uname"} type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
+
+            <label className="required" style={{ "marginTop": "1vw" }}>
+                Пароль
             </label>
-            <br/>
-            <label>
-                Номер телефона:
-                <input id={"phone"} type="text" value={[phone_number]} onChange={(e) => setPhone_number(e.target.value)} />
+            <input className="form-control" id={"passwd"} type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+            <label style={{ "marginTop": "1vw" }}>
+                Инициалы:
+                <input className="form-control" id={"initials"} type="text" value={[initials]} onChange={(e) => setInitials(e.target.value)} />
             </label>
-            <br/>
-            <button onClick={register} type="submit">Зарегистрироваться</button>
+
+            <label style={{ "marginTop": "1vw" }} className="required">
+                Номер телефона
+            </label>
+            <input className="form-control" id={"phone"} type="text" value={[phone_number]} onChange={(e) => setPhone_number(e.target.value)} />
+
+            <button onClick={register} style={{ "marginTop": "1vw" }} type="submit" className="btn btn-primary">Зарегистрироваться</button>
             <a href="/login">Уже зарегистрированы?</a>
             <h3 id={"validation_text_login"}></h3>
             <h3 id={"validation_text_pass"}></h3>

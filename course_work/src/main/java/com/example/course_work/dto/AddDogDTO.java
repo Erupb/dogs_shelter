@@ -22,14 +22,19 @@ public class AddDogDTO{
     @NotBlank(message = "Порода не может быть пустой")
     private String breed;
 
-    @NotBlank(message = "Описание не может быть пустым")
+
     private String description;
+
+    @NotBlank(message = "Пол не может быть пустым")
+    @Size(min = 7, max = 7, message = "Пол должен содержать 7 цифр")
+    private String gender;
 
     public Dog toDog() {
         return Dog.builder()
                 .name(name)
                 .img(img)
                 .breed(breed)
+                .gender(gender)
                 .age(age)
                 .description(description)
                 .ordered(false)

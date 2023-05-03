@@ -1,0 +1,40 @@
+.required:after {
+    content:"*";
+    color: red;
+}
+
+@media all and (min-width: 480px) {
+    .auth {
+        padding: 60px 0;
+    }
+
+    .auth form {
+        margin: 0 auto;
+        max-width: 320px;
+    }
+}
+
+.auth{
+    width: 30%;
+    margin:auto;
+    display:flex;
+    flex-direction: column;
+}
+
+.dogs_button{
+    display:flex;
+    margin: auto;
+    width: 8vw;
+}
+
+@media (max-width: 1500px) {
+    .dogs_button{
+        width: 12vw;
+    }
+}
+
+@media (max-width: 900px) {
+    .dogs_button{
+        width: 25vw;
+    }
+}

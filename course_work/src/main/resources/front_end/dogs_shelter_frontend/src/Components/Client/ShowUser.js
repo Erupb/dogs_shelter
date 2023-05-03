@@ -40,11 +40,12 @@ function ShowUser(props) {
 
     return (
         <div>
-            <h1>Подробные сведения о собаке</h1>
+            <h1>Подробные сведения о пользователе</h1>
             <table className="table, table-bordered" style={{ 'margin': 'auto', 'width': '70%' }}>
                 <thead>
                 <tr>
                     <th>Логин</th>
+                    <th>Инициалы</th>
                     <th>Номер телефона</th>
                     <th>Роль</th>
                 </tr>
@@ -52,6 +53,7 @@ function ShowUser(props) {
                 <tbody>
                 <tr key={user.id}>
                     <td>{user.username}</td>
+                    <td>{user.initials}</td>
                     <td>8{user.phone_number}</td>
                     <td>{user.role}</td>
                 </tr>
