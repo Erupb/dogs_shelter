@@ -15,6 +15,7 @@
     <description>course_work</description>
     <packaging>jar</packaging>
     <properties>
+        <start-class>com.example.course_work.CourseWorkApplication</start-class>
         <java.version>11</java.version>
     </properties>
     <dependencies>
@@ -93,7 +94,7 @@
         </dependency>
     </dependencies>
 
-    <build>
+    <!--<build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -134,6 +135,24 @@
                 </configuration>
             </plugin>
         </plugins>
+    </build>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
-
 </project>

@@ -36,14 +36,14 @@ public interface AuthApi {
             @RequestBody @Valid AuthRequestDTO request
     ) throws UsernameNotFoundException;
 
-    @RequestMapping(
+    /*@RequestMapping(
             method = RequestMethod.PATCH,
             value = "/auth/edit"
     )
     ResponseEntity<?> editProfile(
             @RequestBody @Valid UpdateUserDTO dto,
             HttpServletRequest request
-    ) throws PasswordCheckException;
+    ) throws PasswordCheckException;*/
 
     /*@RequestMapping(
             method = RequestMethod.POST,

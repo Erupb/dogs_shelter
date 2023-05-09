@@ -5,6 +5,7 @@ import com.example.course_work.model.Role;
 import com.example.course_work.repository.UserRepository;
 import com.example.course_work.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -24,7 +25,6 @@ import com.example.course_work.dto.RegisterUserDTO;
 import com.example.course_work.dto.UpdateUserDTO;
 import com.example.course_work.exception.DuplicateUsernameException;
 import com.example.course_work.exception.PasswordCheckException;
-import com.example.course_work.mapper.UserMapper;
 import com.example.course_work.model.User;
 import com.example.course_work.security.JwtTokenProvider;
 
@@ -34,12 +34,10 @@ import javax.validation.Valid;
 @RestController
 @AllArgsConstructor
 public class AuthController implements AuthApi {
-
     private final AuthenticationManager manager;
     private final UserService userService;
     private final JwtTokenProvider jwtTokenProvider;
     private final PasswordEncoder passwordEncoder;
-    private final UserMapper userMapper;
     private final UserRepository userRepository;
 
     public ResponseEntity<?> register(@RequestBody @Valid RegisterUserDTO userDTO) throws DuplicateUsernameException, PasswordCheckException {
@@ -67,7 +65,7 @@ public class AuthController implements AuthApi {
         return ResponseEntity.ok(response);
     }
 
-    public ResponseEntity<?> editProfile(@RequestBody @Valid UpdateUserDTO dto, HttpServletRequest request)
+    /*public ResponseEntity<?> editProfile(@RequestBody @Valid UpdateUserDTO dto, HttpServletRequest request)
             throws PasswordCheckException {
         String pass = userService.checkDTO(dto);
         String token = jwtTokenProvider.resolveToken(request);
@@ -79,7 +77,7 @@ public class AuthController implements AuthApi {
         }
         userService.update(user);
         return new ResponseEntity<>("Данные вашего профиля обновлены", HttpStatus.OK);
-    }
+    }*/
 
     @Secured("ADMIN")
     @GetMapping(value="/admin/get/user/{id}")

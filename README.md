@@ -64,3 +64,7 @@
 Пользователю: dogs
 
 Администратору: dogs/add_dogs, dogs/admin
+
+## Для удачного запуска приложения на данный момент возможна сборка средствами Maven. ##
+mvn clean package spring-boot:repackage   
+java -jar .\target\course_work-0.0.1-SNAPSHOT.jar

@@ -9,8 +9,10 @@ CREATE TABLE IF NOT EXISTS public.users
     role character varying(255) COLLATE pg_catalog."default",
     username character varying(255) COLLATE pg_catalog."default",
     phone_number character varying(12) COLLATE pg_catalog."default",
+    activity boolean DEFAULT true,
+    initials character varying(45) COLLATE pg_catalog."default",
     CONSTRAINT users_pkey PRIMARY KEY (id)
-    )
+)
 
     TABLESPACE pg_default;
 
@@ -28,14 +30,14 @@ CREATE TABLE IF NOT EXISTS public.orders
     id bigint NOT NULL DEFAULT nextval('orders_id_seq'::regclass),
     CONSTRAINT orders_pk PRIMARY KEY (id),
     CONSTRAINT dog_id FOREIGN KEY (dog_id)
-    REFERENCES public.dogs (id) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
+        REFERENCES public.dogs (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
     CONSTRAINT user_id FOREIGN KEY (user_id)
-    REFERENCES public.users (id) MATCH SIMPLE
-    ON UPDATE CASCADE
-    ON DELETE CASCADE
-    )
+        REFERENCES public.users (id) MATCH SIMPLE
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+)
 
     TABLESPACE pg_default;
 
@@ -55,8 +57,9 @@ CREATE TABLE IF NOT EXISTS public.dogs
     age integer,
     description character varying(255) COLLATE pg_catalog."default",
     ordered boolean DEFAULT false,
+    gender character varying(7) COLLATE pg_catalog."default",
     CONSTRAINT dogs_pkey PRIMARY KEY (id)
-    )
+)
 
     TABLESPACE pg_default;
 
