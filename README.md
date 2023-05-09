@@ -66,5 +66,6 @@
 Администратору: dogs/add_dogs, dogs/admin
 
 ## Для удачного запуска приложения на данный момент возможна сборка средствами Maven. ##
-mvn clean package spring-boot:repackage   
+Перейти в папку dogs_shelter/course_work и запустить команды:
+mvn clean package spring-boot:repackage (Или ./mvnw clean ...)  
 java -jar .\target\course_work-0.0.1-SNAPSHOT.jar
