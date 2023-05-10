@@ -32,3 +32,10 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+  front_end:
+    build: ../src/main/resources/front_end/dogs_shelter_frontend
+    container_name: frontend_c
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    tty: true

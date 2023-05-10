@@ -41,8 +41,8 @@ function DeleteDog(props) {
         if(response.ok){
             admin_deleted_dog.style.visibility = "visible";
         }
-        const data = await response.json();
-        setDog(data);
+        /*const data = await response.json();
+        setDog(data);*/
     };
 
     function getTokenFromStorage(){
