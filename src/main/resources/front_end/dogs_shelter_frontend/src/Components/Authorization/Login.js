@@ -16,12 +16,12 @@ function Login() {
         event.preventDefault();
 
 
-        const response = await fetch('http://localhost:8084/auth/login', {
+        const response = await fetch('http://89.108.76.130:8084/auth/login', {
             method: 'POST',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Origin': 'http://89.108.76.130:8084',
                 'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                 'Access-Control-Allow-Headers': '*',
 
@@ -68,7 +68,7 @@ function Login() {
         const user = {username, password};
         // send the username and password to the server
         const response = await axios.post(
-            "http://localhost:8084/auth/login",
+            "http://89.108.76.130:8084/auth/login",
             user
         );
         // set the state of the user

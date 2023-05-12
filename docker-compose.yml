@@ -18,7 +18,7 @@ services:
       timeout: 5s
       retries: 5
   app:
-    image: adoptopenjdk:11-jre-hotspot
+    image: adoptopenjdk:16-jre-hotspot
     volumes:
       - ./target/course_work-0.0.1-SNAPSHOT.jar:/app.jar
     command: java -jar app.jar

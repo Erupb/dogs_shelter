@@ -25,10 +25,10 @@ function Dogs() {
         const fetchDogs = async () => {
             let token;
             token = getTokenFromStorage();
-            const response = await fetch('http://localhost:8084/dogs', {
+            const response = await fetch('http://89.108.76.130:8084/dogs', {
                 method:"GET",
                 headers: {
-                    'Access-Control-Allow-Origin': 'http://localhost:8084',
+                    'Access-Control-Allow-Origin': 'http://89.108.76.130:8084',
                     'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                     'Access-Control-Allow-Headers': '*',
                     Authorization: `Bearer ${token}`
@@ -54,10 +54,10 @@ function Dogs() {
     const getUserRole = async () => {
         let token;
         token = getTokenFromStorage();
-        const response = await fetch('http://localhost:8084/get/user_role/' + getUsernameFromStorage(), {
+        const response = await fetch('http://89.108.76.130:8084/get/user_role/' + getUsernameFromStorage(), {
             method:"GET",
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Origin': 'http://89.108.76.130:8084',
                 'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                 'Access-Control-Allow-Headers': '*',
                 Authorization: `Bearer ${token}`

@@ -18,12 +18,12 @@ function AddDog() {
         let token;
         token = getTokenFromStorage();
 
-        const response = await fetch('http://localhost:8084/dogs/admin/add_dogs', {
+        const response = await fetch('http://89.108.76.130:8084/dogs/admin/add_dogs', {
             method: 'POST',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Origin': 'http://89.108.76.130:8084',
                 'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                 'Access-Control-Allow-Headers': '*',
                 Authorization: `Bearer ${token}`

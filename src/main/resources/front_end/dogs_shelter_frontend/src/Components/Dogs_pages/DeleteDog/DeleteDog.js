@@ -9,10 +9,10 @@ function DeleteDog(props) {
     const dog_id = window.location.pathname.split('/').pop();
     useEffect(() => {
         const fetchDogs = async () => {
-            const response = await fetch('http://localhost:8084/dogs/admin/' + dog_id, {
+            const response = await fetch('http://89.108.76.130:8084/dogs/admin/' + dog_id, {
                 method:"GET",
                 headers: {
-                    'Access-Control-Allow-Origin': 'http://localhost:8084',
+                    'Access-Control-Allow-Origin': 'http://89.108.76.130:8084',
                     'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                     'Access-Control-Allow-Headers': '*',
                     Authorization: `Bearer ${token}`
@@ -26,10 +26,10 @@ function DeleteDog(props) {
     }, []);
 
     const DeleteDog = async () => {
-        const response = await fetch('http://localhost:8084/dogs/admin/' + dog_id + '/remove', {
+        const response = await fetch('http://89.108.76.130:8084/dogs/admin/' + dog_id + '/remove', {
             method:"DELETE",
             headers: {
-                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Origin': 'http://89.108.76.130:8084',
                 'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                 'Access-Control-Allow-Headers': '*',
                 Authorization: `Bearer ${token}`

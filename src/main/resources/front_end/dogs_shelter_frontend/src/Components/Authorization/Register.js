@@ -12,12 +12,12 @@ function Register() {
         event.preventDefault();
 
 
-        const response = await fetch('http://localhost:8084/auth/register', {
+        const response = await fetch('http://89.108.76.130:8084/auth/register', {
             method: 'POST',
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://localhost:8084',
+                'Access-Control-Allow-Origin': 'http://89.108.76.130:8084',
                 'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                 'Access-Control-Allow-Headers': '*',
 
@@ -41,7 +41,7 @@ function Register() {
     /*async function register(){
         console.log(username, password, phone_number);
         let item={username, password, phone_number};
-        let result = await fetch("http://localhost:8084/auth/register", {
+        let result = await fetch("http://89.108.76.130:8084/auth/register", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
