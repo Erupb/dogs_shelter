@@ -1,4 +1,4 @@
-package com.example.course_work;
+package com.example.course_work.repository;
 
 import com.example.course_work.model.Dog;
 import org.springframework.data.jpa.repository.JpaRepository;

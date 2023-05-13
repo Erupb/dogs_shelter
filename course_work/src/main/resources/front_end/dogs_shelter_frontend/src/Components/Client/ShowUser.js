@@ -15,12 +15,10 @@ function ShowUser(props) {
             const response = await fetch('http://localhost:8084/admin/get/user/' + user_id, {
                 method:"GET",
                 headers: {
-
                     'Access-Control-Allow-Origin': 'http://localhost:8084',
                     'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                     'Access-Control-Allow-Headers': '*',
                     Authorization: `Bearer ${token}`
-
                 },
             });
             const data = await response.json();

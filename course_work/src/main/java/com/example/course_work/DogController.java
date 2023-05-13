@@ -4,6 +4,8 @@ import com.example.course_work.dto.AddDogDTO;
 import com.example.course_work.dto.AddOrderDTO;
 import com.example.course_work.model.Dog;
 import com.example.course_work.model.Order;
+import com.example.course_work.repository.DogRepository;
+import com.example.course_work.repository.OrderRepository;
 import com.example.course_work.service.UserService;
 import com.example.course_work.repository.UserRepository;
 import com.example.course_work.service.DogService;
@@ -12,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 

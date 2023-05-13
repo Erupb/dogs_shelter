@@ -1,7 +1,7 @@
 package com.example.course_work.service;
 
 import com.example.course_work.model.Order;
-import com.example.course_work.OrderRepository;
+import com.example.course_work.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

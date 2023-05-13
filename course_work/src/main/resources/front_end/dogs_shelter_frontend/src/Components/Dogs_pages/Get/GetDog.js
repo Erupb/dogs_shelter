@@ -16,7 +16,6 @@ function GetDog(props) {
             const response = await fetch('http://localhost:8084/dogs/get/' + dog_id, {
                 method:"GET",
                 headers: {
-
                     'Access-Control-Allow-Origin': 'http://localhost:8084',
                     'Access-Control-Allow-Methods': 'GET, POST, DELETE',
                     'Access-Control-Allow-Headers': '*',
