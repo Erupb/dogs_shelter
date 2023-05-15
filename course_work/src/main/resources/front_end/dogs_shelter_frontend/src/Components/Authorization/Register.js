@@ -86,7 +86,7 @@ function Register() {
         if(phone == ""){
             validation_text_phone.innerHTML = "Номер телефона не может быть пустым";
         }
-        else if(!(/\d{10}/.test(phone))){
+        else if(!(/^\D*(\d\D*){10}$/.test(phone))){
             validation_text_phone.innerHTML = "Номер телефона должен содержать 10 цифр";
         } else validation_text_phone.innerHTML = "";
     }
